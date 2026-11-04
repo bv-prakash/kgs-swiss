@@ -1,0 +1,35 @@
+{
+  "variantName": "hero-banner",
+  "baseBlock": "hero",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Top-of-page hero with a photographic background and calls to action",
+    "description": "Full-width banner with a background photo, H1, intro text and primary/secondary CTAs",
+    "source": "Full-width photo background with H1, intro and two CTAs; photo background belongs to the hero, so the section is not colored."
+  },
+  "contentPattern": {
+    "structure": "Row 1: background image. Row 2: H1 title, intro paragraph, CTA links (first link is primary, others secondary)",
+    "rows": [
+      [
+        "Background image (home_1.webp)"
+      ],
+      [
+        "H1 title, intro paragraph, CTA links (primary: Explore Industries, secondary: Become a Partner)"
+      ]
+    ],
+    "sourceSelectors": [
+      "#maincontent > div.columns > div.column.main > div.main-banner"
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": [
+    {
+      "url": "https://www.kgs.swiss/",
+      "sections": [
+        "s1 (Hero banner)"
+      ]
+    }
+  ],
+  "reuseGuidance": "Use for the single page-opening banner; for heroes without a background photo use the base hero block."
+}

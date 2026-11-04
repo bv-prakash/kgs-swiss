@@ -1,0 +1,33 @@
+{
+  "variantName": "columns-video",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Video beside a short marketing statement",
+    "description": "Two fixed side-by-side panels: playable video (poster + video link) and a text panel with eyebrow, statement and CTA",
+    "source": "Fixed pair of different content side by side that never wraps into a grid: playable video (poster + mp4 link) and a dark text panel with eyebrow, statement and CTA."
+  },
+  "contentPattern": {
+    "structure": "One row, two cells. Cell 1: poster image plus a link to an .mp4 video. Cell 2: eyebrow paragraph, statement paragraph, CTA link",
+    "rows": [
+      [
+        "Poster image + link to KGS-DIAMOND-proud-international-manufacturer-of-diamond-abrasives.mp4",
+        "Eyebrow 'Solutions For', paragraph 'OEMs | Distributors | Engineers | Professionals', CTA link 'Learn more'"
+      ]
+    ],
+    "sourceSelectors": [
+      "#maincontent > div.columns > div.column.main > div:nth-of-type(3)"
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": [
+    {
+      "url": "https://www.kgs.swiss/",
+      "sections": [
+        "s2 (Video and Solutions For)"
+      ]
+    }
+  ],
+  "reuseGuidance": "Use when a video should sit beside text. Cells stack on mobile; the video loads only when the play button is clicked."
+}

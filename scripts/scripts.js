@@ -9,6 +9,9 @@ import {
   loadSections,
   loadCSS,
   buildBlock,
+  readBlockConfig,
+  toClassName,
+  toCamelCase,
 } from './aem.js';
 import {
   loadCommerceEager,
@@ -181,6 +184,32 @@ function decorateButtons(main) {
 }
 
 /**
+ * Applies Section Metadata blocks to their sections (style -> classes,
+ * other keys -> data attributes), then removes the metadata blocks.
+ * @param {Element} main The container element
+ */
+function decorateSectionMetadata(main) {
+  main.querySelectorAll(':scope > div.section div.section-metadata').forEach((sectionMeta) => {
+    const section = sectionMeta.closest('.section');
+    const meta = readBlockConfig(sectionMeta);
+    Object.keys(meta).forEach((key) => {
+      if (key === 'style') {
+        meta.style
+          .split(',')
+          .filter((style) => style)
+          .map((style) => toClassName(style.trim()))
+          .forEach((style) => section.classList.add(style));
+      } else {
+        section.dataset[toCamelCase(key)] = meta[key];
+      }
+    });
+    const wrapper = sectionMeta.parentElement;
+    sectionMeta.remove();
+    if (wrapper && !wrapper.children.length) wrapper.remove();
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -189,6 +218,7 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  decorateSectionMetadata(main);
   decorateBlocks(main);
   decorateButtons(main);
 }

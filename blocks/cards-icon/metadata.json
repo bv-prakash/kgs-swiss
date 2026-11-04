@@ -1,0 +1,36 @@
+{
+  "variantName": "cards-icon",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Benefit or value-proposition feature list",
+    "description": "Feature items with a small icon, H3 title and description in a 1/2/4-column grid",
+    "source": "Four look-alike feature items (icon, H3, text) in a wrapping row."
+  },
+  "contentPattern": {
+    "structure": "Cell 1: icon image. Cell 2: H3 title, description paragraph",
+    "rows": [
+      [
+        "Icon image",
+        "H3 title, description paragraph"
+      ],
+      [
+        "one row per feature (4 rows)"
+      ]
+    ],
+    "sourceSelectors": [
+      "#maincontent > div.columns > div.column.main > div:nth-of-type(8)"
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": [
+    {
+      "url": "https://www.kgs.swiss/",
+      "sections": [
+        "s7 (Why work with us)"
+      ]
+    }
+  ],
+  "reuseGuidance": "Use for 2-4 short features with icons."
+}

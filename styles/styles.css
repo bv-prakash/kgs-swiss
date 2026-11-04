@@ -1,3 +1,5 @@
+@import url('brand.css');
+
 /*
  * Copyright 2020 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -88,7 +90,7 @@
   --spacing-huge: 120px;
   --spacing-xhuge: 144px;
   --spacing-xxhuge: 192px;
-  --type-base-font-family: adobe-clean, roboto, roboto-fallback, system-ui, sans-serif;
+  --type-base-font-family: var(--body-font-family);
   --type-display-1-font: normal normal 300 6rem/7.2rem var(--type-base-font-family);
   --type-display-1-letter-spacing: 0.04em;
   --type-display-2-font: normal normal 300 4.8rem/5.6rem var(--type-base-font-family);
@@ -125,16 +127,14 @@
   --type-details-overline-letter-spacing: 0.16em;
 
   /* Additional tokens */
-  --type-fixed-font-family: adobe-clean, "Roboto Mono", menlo, consolas, "Liberation Mono", monospace, system-ui, sans-serif;
-  --background-color: var(--color-neutral-50);
-  --nav-height: 6.4rem;
+  --type-fixed-font-family: "Roboto Mono", menlo, consolas, "Liberation Mono", monospace, system-ui, sans-serif;
 }
 
-/* fallback font */
+/* fallback font, sized to Montserrat to limit layout shift */
 @font-face {
-  font-family: adobe-clean;
-  size-adjust: 100%;
-  src: local("Helvetica");
+  font-family: montserrat-fallback;
+  size-adjust: 113.4%;
+  src: local("Arial");
 }
 
 html, body {
@@ -146,10 +146,13 @@ html {
 }
 
 body {
-  font: var(--type-body-1-default-font);
-  letter-spacing: var(--type-body-1-default-letter-spacing);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-l);
+  font-weight: 500;
+  line-height: 1.4286;
+  letter-spacing: normal;
   margin: 0;
-  color: var(--color-neutral-800);
+  color: var(--text-color);
   background-color: var(--background-color);
   display: grid;
   grid-template-rows: auto 1fr auto;
@@ -190,40 +193,40 @@ h3,
 h4,
 h5,
 h6 {
-  margin-top: 0.8em;
-  margin-bottom: 0.25em;
-  line-height: 1.25;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-family: var(--heading-font-family);
+  font-weight: 700;
+  line-height: 1.22;
+  letter-spacing: normal;
+  color: inherit;
   scroll-margin: 40px;
 }
 
 h1 {
-  font: var(--type-display-1-font);
-  letter-spacing: var(--type-display-1-letter-spacing);
+  margin-bottom: 12px;
+  font-size: var(--heading-font-size-xxl);
 }
 
 h2 {
-  font: var(--type-display-2-font);
-  letter-spacing: var(--type-display-2-letter-spacing);
+  font-size: var(--heading-font-size-xl);
 }
 
 h3 {
-  font: var(--type-display-3-font);
-  letter-spacing: var(--type-display-3-letter-spacing);
+  font-size: var(--heading-font-size-l);
+  font-weight: 600;
 }
 
 h4 {
-  font: var(--type-headline-1-font);
-  letter-spacing: var(--type-headline-1-letter-spacing);
+  font-size: var(--heading-font-size-m);
 }
 
 h5 {
-  font: var(--type-headline-2-strong-font);
-  letter-spacing: var(--type-headline-2-strong-letter-spacing);
+  font-size: var(--heading-font-size-s);
 }
 
 h6 {
-  font: var(--type-headline-2-default-font);
-  letter-spacing: var(--type-headline-2-default-letter-spacing);
+  font-size: var(--heading-font-size-xs);
 }
 
 p,
@@ -232,8 +235,23 @@ ol,
 ul,
 pre,
 blockquote {
-  margin-top: 1.5625em;
-  margin-bottom: 1.5625em;
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+p {
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-line-height);
+}
+
+@media (width >= 768px) {
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    margin-bottom: 40px;
+  }
 }
 
 hr {
@@ -275,16 +293,16 @@ button {
 
 /* links */
 a:not(.dropin-design a) {
-  color: var(--color-brand-500);
-  font: var(--type-body-1-strong-font);
-  letter-spacing: var(--type-body-1-strong-letter-spacing);
+  color: var(--link-color);
+  font-weight: 700;
   text-decoration: none;
   overflow-wrap: break-word;
+  transition: color var(--button-transition);
 }
 
-a:not(.dropin-design a):hover {
-  color: var(--color-brand-600);
-  text-decoration: underline;
+a:not(.dropin-design a):hover,
+a:not(.dropin-design a):focus-visible {
+  color: var(--link-hover-color);
 }
 
 /* buttons */
@@ -292,7 +310,28 @@ p.button-wrapper {
   margin: var(--spacing-small) 0;
 }
 
-main a.button:any-link,
+/* EDS button reset: a .button only looks like a button through its variant */
+main .button-container {
+  display: inline;
+}
+
+main a.button:any-link {
+  background: none;
+  border: none;
+  border-radius: 0;
+  color: var(--link-color);
+  font-size: inherit;
+  font-weight: inherit;
+  padding: 0;
+  margin: 0;
+  text-decoration: underline;
+  white-space: normal;
+}
+
+/* KGS buttons: square, uppercase, bold, 1px border */
+main a.button.primary:any-link,
+main a.button.secondary:any-link,
+main a.button.accent:any-link,
 button.button {
   box-sizing: border-box;
   display: inline-flex;
@@ -300,21 +339,23 @@ button.button {
   justify-content: center;
   max-width: 100%;
   margin: 0;
-  border: var(--shape-border-width-3) solid transparent;
-  border-radius: var(--shape-border-radius-3);
-  padding: 0.5em 1.2em;
-  font: var(--type-button-2-font);
-  letter-spacing: var(--type-button-2-letter-spacing);
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1.25;
+  border: 1px solid transparent;
+  border-radius: 0;
+  padding: var(--button-padding);
+  font-family: var(--body-font-family);
+  font-size: var(--button-font-size);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: normal;
+  text-transform: uppercase;
   text-decoration: none;
-  background-color: var(--color-brand-500);
-  color: var(--color-neutral-50);
+  background-color: var(--brand-red);
+  color: #fff;
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  transition: background-color var(--button-transition), color var(--button-transition), border-color var(--button-transition);
 }
 
 a.button[aria-disabled="true"],
@@ -323,12 +364,11 @@ button.button:disabled {
   pointer-events: none;
 }
 
-main a.button:hover,
-main a.button:focus,
 button.button:hover,
-button.button:focus {
-  background-color: var(--color-brand-600);
-  cursor: pointer;
+button.button:focus-visible {
+  border-color: var(--brand-red);
+  background-color: #fff;
+  color: var(--brand-red);
 }
 
 main a.button.disabled,
@@ -338,19 +378,21 @@ button.button:disabled:hover {
   cursor: unset;
 }
 
-a.button.primary,
+/* primary: solid red */
+main a.button.primary:any-link,
 button.button.primary {
-  border-color: var(--color-brand-500);
-  background-color: var(--color-brand-500);
-  color: var(--color-neutral-50);
+  border-color: var(--brand-red);
+  background-color: var(--brand-red);
+  color: #fff;
 }
 
-a.button.primary:hover,
-a.button.primary:focus-visible,
+main a.button.primary:hover,
+main a.button.primary:focus-visible,
 button.button.primary:hover,
 button.button.primary:focus-visible {
-  border-color: var(--color-brand-600);
-  background-color: var(--color-brand-600);
+  border-color: var(--brand-red);
+  background-color: #fff;
+  color: var(--brand-red);
 }
 
 a.button.primary[aria-disabled="true"],
@@ -364,18 +406,65 @@ button.button.primary:disabled:focus-visible {
   color: var(--color-neutral-50);
 }
 
-main a.button.secondary,
+/* secondary: white with navy outline; on dark sections it inverts to a white outline */
+main a.button.secondary:any-link,
 button.button.secondary {
-  background-color: unset;
-  border: var(--shape-border-width-3) solid currentcolor;
-  color: var(--color-brand-500);
+  border-color: var(--brand-navy);
+  background-color: #fff;
+  color: var(--brand-navy);
 }
 
 main a.button.secondary:hover,
 main a.button.secondary:focus-visible,
 button.button.secondary:hover,
 button.button.secondary:focus-visible {
-  color: var(--color-brand-600);
+  border-color: var(--brand-navy);
+  background-color: var(--brand-navy);
+  color: #fff;
+}
+
+/* from 768px a north-east arrow appears in the button's right padding on hover */
+@media (width >= 768px) {
+  main a.button.primary:any-link,
+  main a.button.secondary:any-link,
+  main a.button.accent:any-link {
+    position: relative;
+    padding-inline: 40px;
+  }
+
+  main a.button.primary:any-link::after,
+  main a.button.secondary:any-link::after,
+  main a.button.accent:any-link::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    width: 16px;
+    height: 16px;
+    margin-top: -8px;
+    background-color: currentcolor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='2.4'%3E%3Cpath d='M3 13 13 3M5 3h8v8'/%3E%3C/svg%3E") center / contain no-repeat;
+    opacity: 0;
+    transition: opacity var(--button-transition);
+  }
+
+  main a.button:hover::after,
+  main a.button:focus-visible::after {
+    opacity: 1;
+  }
+}
+
+main .section.dark a.button.secondary:any-link {
+  border-color: #fff;
+  background-color: var(--brand-navy);
+  color: #fff;
+}
+
+main .section.dark a.button.secondary:hover,
+main .section.dark a.button.secondary:focus-visible {
+  border-color: #fff;
+  background-color: #fff;
+  color: var(--brand-red);
 }
 
 
@@ -457,7 +546,7 @@ main img {
 
 /* sections */
 main > .section {
-  margin: var(--spacing-xbig) 0;
+  margin: 0 0 var(--section-spacing);
 }
 
 .section:empty {
@@ -465,27 +554,241 @@ main > .section {
 }
 
 main > .section > div {
-  max-width: 1200px;
+  box-sizing: border-box;
+  max-width: var(--content-max-width);
   margin: auto;
-  padding: 0 var(--spacing-medium);
+  padding: 0 var(--content-gutter);
 }
 
 main > .section:first-of-type {
   margin-top: 0;
 }
 
-@media (min-width: 900px) {
-  main > .section > div {
-    padding: 0 var(--spacing-big);
+/* the hero is followed by a tighter 40px gap at every width */
+main > .section.hero-banner-container {
+  margin-bottom: 40px;
+}
+
+main .default-content-wrapper > p:last-child {
+  margin-bottom: 0;
+}
+
+/* eyebrow: the short label above a heading, or alone above a block */
+main .default-content-wrapper > p:has(+ h2),
+main .section.centered .default-content-wrapper > p:only-child {
+  margin-bottom: 8px;
+  font-size: var(--eyebrow-font-size);
+  font-weight: 700;
+  line-height: 1.4286;
+  letter-spacing: var(--eyebrow-letter-spacing);
+  text-transform: uppercase;
+  color: var(--muted-text-color);
+}
+
+main .section.centered .default-content-wrapper > p:only-child {
+  margin-bottom: 20px;
+}
+
+@media (width >= 768px) {
+  main .default-content-wrapper > p:has(+ h2),
+  main .section.centered .default-content-wrapper > p:only-child {
+    line-height: 20px;
+  }
+
+  main .section.centered .default-content-wrapper > p:only-child {
+    margin-bottom: 40px;
   }
 }
 
 /* section metadata - styles - start */
-main .section.light,
-main .section.highlight {
-  background-color: var(--color-neutral-100);
+
+/* centered: the source keeps default content left-aligned on phones */
+@media (width >= 768px) {
+  main .section.centered .default-content-wrapper {
+    text-align: center;
+  }
+}
+
+/* light-grey-gradient: soft grey fading down to white */
+main .section.light-grey-gradient {
+  padding-top: var(--section-spacing);
+  background: var(--gradient-light-grey);
+}
+
+/* dark: navy band with the KGS watermark (first image of the section) */
+main .section.dark {
+  position: relative;
+  padding: 40px 0;
+  background-color: var(--dark-color);
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+main .section.dark > .default-content-wrapper:first-child > p:first-child:has(picture) {
+  position: absolute;
+  inset: 0;
+
+  /* auto placement keeps the whole section as containing block inside a split grid */
+  grid-area: auto;
+  z-index: -1;
   margin: 0;
-  padding: var(--spacing-xbig) 0;
+}
+
+main .section.dark > .default-content-wrapper:first-child > p:first-child:has(picture) img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+main .section.dark .default-content-wrapper > p:has(+ h2) {
+  color: var(--muted-text-color);
+}
+
+main .section.dark h2,
+main .section.light-grey h2 {
+  margin-bottom: 20px;
+}
+
+/* the team photo: desktop image from 768px, mobile image below; cut top-right corner */
+main .section.dark p:has(> picture + picture) {
+  margin-bottom: 20px;
+  line-height: 0;
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+}
+
+main .section.dark p:has(> picture + picture) picture:first-child {
+  display: none;
+}
+
+main .section.dark p:has(> picture + picture) img {
+  width: 100%;
+}
+
+/* light-grey: grey panel with a white notch in the top-right corner */
+main .section.light-grey {
+  position: relative;
+  padding: 40px 0;
+  background-color: var(--light-color);
+}
+
+main .section.light-grey::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 21px;
+  height: 21px;
+  background-color: var(--background-color);
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+
+main .section.light-grey .default-content-wrapper > p:not(:has(+ h2)) {
+  color: var(--brand-grey-dark);
+}
+
+@media (width >= 768px) {
+  main .section.dark {
+    padding: 100px 0;
+  }
+
+  main .section.dark > .default-content-wrapper:first-child > p:first-child:has(picture) img {
+    object-position: 100% 100%;
+  }
+
+  /* the About intro keeps its desktop text size from tablet up */
+  main .section.dark .default-content-wrapper > p:not(:has(+ h2)) {
+    font-size: 18px;
+    line-height: 1.4286;
+  }
+
+  main .section.dark p:has(> picture + picture) {
+    margin-bottom: 60px;
+    clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%);
+  }
+
+  /* the grey panel keeps the mobile heading size until desktop */
+  main .section.light-grey h2 {
+    font-size: 26px;
+  }
+
+  main .section.dark p:has(> picture + picture) picture:first-child {
+    display: block;
+  }
+
+  main .section.dark p:has(> picture + picture) picture:last-child {
+    display: none;
+  }
+
+  main .section.light-grey {
+    box-sizing: border-box;
+    width: calc(100% - (2 * var(--content-gutter)));
+    max-width: calc(var(--content-max-width) - (2 * var(--content-gutter)));
+    margin-inline: auto;
+    padding: 40px;
+  }
+
+  main .section.light-grey::after {
+    width: 41px;
+    height: 41px;
+  }
+
+  main .section.light-grey > div {
+    padding: 0;
+  }
+
+  /* split, light-grey: default content left, block right */
+  main .section.light-grey.split {
+    display: grid;
+    grid-template-columns: minmax(0, 11fr) minmax(0, 10fr);
+    column-gap: 30px;
+    align-items: start;
+  }
+
+  main .section.light-grey.split > div {
+    max-width: none;
+    margin: 0;
+  }
+}
+
+@media (width >= 1024px) {
+  main .section.light-grey {
+    padding: 72px 60px;
+  }
+
+  main .section.light-grey.split {
+    column-gap: 76px;
+  }
+
+  main .section.light-grey h2 {
+    font-size: var(--heading-font-size-xl);
+  }
+
+  /* split, dark: team photo left, everything else right */
+  main .section.dark.split {
+    display: grid;
+    grid-template-columns: minmax(0, 558fr) minmax(0, 528fr);
+
+    /* text items fill the min-content rows; the last 1fr row absorbs the photo height */
+    grid-template-rows: repeat(10, min-content) 1fr;
+    column-gap: 60px;
+    padding-inline: max(var(--content-gutter), calc((100% - 1146px) / 2));
+  }
+
+  main .section.dark.split > div {
+    display: contents;
+  }
+
+  main .section.dark.split > div > * {
+    grid-column: 2;
+  }
+
+  main .section.dark.split p:has(> picture + picture) {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    margin: 0;
+  }
 }
 
 main .section[data-padding="default"] {
@@ -566,6 +869,61 @@ main .section[data-margin="xxhuge"] {
 }
 
 /* section metadata - styles - end */
+
+/* news teaser heading row: eyebrow + heading left, "view all" button right */
+main .section.cards-news-container > .default-content-wrapper {
+  margin-bottom: 20px;
+}
+
+main .section.cards-news-container > .default-content-wrapper > p:has(+ h2) {
+  margin-bottom: 4px;
+}
+
+/* "view all" button: the source reserves its arrow space even on phones */
+main .section.cards-news-container .default-content-wrapper a.button:any-link {
+  padding: 10px 36px 10px 16px;
+}
+
+@media (width >= 768px) {
+  main .section.cards-news-container > .default-content-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  main .section.cards-news-container > .default-content-wrapper > * {
+    grid-column: 1;
+  }
+
+  main .section.cards-news-container > .default-content-wrapper > h2 {
+    margin-bottom: 0;
+  }
+
+  /* flex + no margin so the button paragraph is exactly as tall as its button */
+  main .section.cards-news-container > .default-content-wrapper > h2 + p {
+    display: flex;
+    margin: 0;
+    grid-column: 2;
+    grid-row: 2;
+    align-self: end;
+    justify-self: end;
+  }
+
+  main .section.cards-news-container .default-content-wrapper a.button:any-link {
+    padding: 13px 59px 14px;
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  /* the arrow appears 8px after the centred label */
+  main .section.cards-news-container .default-content-wrapper a.button:any-link::after {
+    right: 37px;
+    width: 14px;
+    height: 14px;
+    margin-top: -7px;
+  }
+}
 
 /* Base Design System Tokens */
 .dropin-design.dropin-design {

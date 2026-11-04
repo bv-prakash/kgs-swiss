@@ -1,0 +1,38 @@
+{
+  "variantName": "accordion-plus",
+  "baseBlock": "accordion",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Expandable topic lists (mission/vision, processing stages)",
+    "description": "Collapsible items with plus/minus toggles and divider lines",
+    "source": "Interactive collapsible items (Mission, Vision, Sustainability) with + toggles and divider lines. | Interactive collapsible items with + toggles; same visual pattern as s6-q3, so the same variant is reused."
+  },
+  "contentPattern": {
+    "structure": "Cell 1: item title. Cell 2: body content",
+    "rows": [
+      [
+        "Title (e.g. 'Mission')",
+        "Body paragraph"
+      ],
+      [
+        "one row per item (3 in s6, 4 in s8)"
+      ]
+    ],
+    "sourceSelectors": [
+      "#maincontent > div.columns > div.column.main > div.kgs-diamond.background-image-6ae9a3409f83b",
+      "#maincontent > div.columns > div.column.main > div:nth-of-type(9)"
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": [
+    {
+      "url": "https://www.kgs.swiss/",
+      "sections": [
+        "s6 (About KGS Diamond)",
+        "s8 (Processing stages)"
+      ]
+    }
+  ],
+  "reuseGuidance": "Use wherever a plus-toggle accordion is needed; inherits text color from the section (works on dark and light sections)."
+}
