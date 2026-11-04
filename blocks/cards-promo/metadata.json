@@ -1,0 +1,35 @@
+{
+  "variantName": "cards-promo",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Promotional call-to-action panels",
+    "description": "Two text panels (H3, description, CTA pinned to the bottom) that stack on mobile",
+    "source": "Two look-alike grey panels (H3, text, arrow link) that stack on mobile; the grey belongs to each card, the section is white."
+  },
+  "contentPattern": {
+    "structure": "One cell: H3 title, description paragraph, CTA link",
+    "rows": [
+      [
+        "H3 title, description paragraph, CTA link"
+      ],
+      [
+        "one row per panel (2 rows)"
+      ]
+    ],
+    "sourceSelectors": [
+      "#html-body > div.page-wrapper > div.page-bottom"
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": [
+    {
+      "url": "https://www.kgs.swiss/",
+      "sections": [
+        "s10 (Promo panels)"
+      ]
+    }
+  ],
+  "reuseGuidance": "Use for 2 text-only promotional panels with a CTA each."
+}

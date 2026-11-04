@@ -1,0 +1,82 @@
+/* cards-icon: icon + title + text feature items (source: .why-choose-us column group) */
+.cards-icon {
+  text-align: left;
+}
+
+.cards-icon > ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-icon .cards-icon-item {
+  margin: 0;
+  padding: 0;
+}
+
+.cards-icon .cards-icon-icon {
+  margin: 0 0 20px;
+  line-height: 0;
+}
+
+.cards-icon .cards-icon-icon picture {
+  display: block;
+}
+
+.cards-icon .cards-icon-icon img {
+  display: block;
+  width: 57px;
+  max-width: 100%;
+  height: 57px;
+  object-fit: fill;
+}
+
+.cards-icon .cards-icon-body > * {
+  margin: 0;
+}
+
+.cards-icon .cards-icon-body h3,
+.cards-icon .cards-icon-title {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  color: var(--brand-navy);
+}
+
+.cards-icon .cards-icon-body p {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  color: var(--brand-grey-dark);
+}
+
+@media (width >= 768px) {
+  .cards-icon > ul {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 26px;
+  }
+
+  .cards-icon .cards-icon-item {
+    padding: 40px 0;
+  }
+
+  .cards-icon .cards-icon-icon {
+    margin-bottom: 16px;
+  }
+
+  .cards-icon .cards-icon-body h3,
+  .cards-icon .cards-icon-title {
+    margin-bottom: 8px;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .cards-icon .cards-icon-body p {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}

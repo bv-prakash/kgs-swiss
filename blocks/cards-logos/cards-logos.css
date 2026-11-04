@@ -1,0 +1,85 @@
+/* mobile: two logos per row, a lone last logo spans the row and centres */
+.cards-logos > ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.cards-logos .cards-logos-item {
+  box-sizing: border-box;
+  flex: 1 1 calc(50% - 20px);
+  max-width: 100%;
+  min-width: 0;
+
+  /* source: 10px 12px padding plus the 7px inline-image line-box descent */
+  padding: 10px 12px 17px;
+}
+
+/* the source draws each logo inside a fixed-height box, contained */
+.cards-logos .cards-logos-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 34px;
+}
+
+.cards-logos .cards-logos-logo a,
+.cards-logos .cards-logos-logo picture {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  height: 100%;
+}
+
+.cards-logos .cards-logos-logo img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 22px;
+  object-fit: contain;
+}
+
+.cards-logos .cards-logos-name {
+  margin: 0;
+}
+
+.cards-logos .cards-logos-name-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* tablet and up: six equal columns, the seventh wraps and centres */
+@media (width >= 768px) {
+  .cards-logos > ul {
+    gap: 57px 40px;
+  }
+
+  .cards-logos .cards-logos-item {
+    flex: 0 0 calc((100% - 200px) / 6);
+    padding: 0 0 7px;
+  }
+
+  /* a lone logo on the last row gets the full row, as on the source */
+  .cards-logos .cards-logos-item:nth-child(6n + 1):last-child {
+    flex-basis: 100%;
+  }
+
+  .cards-logos .cards-logos-logo {
+    height: 46px;
+  }
+
+  .cards-logos .cards-logos-logo img {
+    max-height: 29px;
+  }
+}

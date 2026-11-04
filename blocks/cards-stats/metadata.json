@@ -1,0 +1,35 @@
+{
+  "variantName": "cards-stats",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Company key figures (countries, years, employees, markets)",
+    "description": "Row of key figures: large value with a short label, wrapping to two columns on mobile",
+    "source": "Four look-alike stat items that wrap on smaller screens; stat values are kept as strong paragraphs, not headings."
+  },
+  "contentPattern": {
+    "structure": "One cell: value paragraph (bold, e.g. **15+**), label paragraph",
+    "rows": [
+      [
+        "<strong>15+</strong> value paragraph, label paragraph 'Countries across 4 continents'"
+      ],
+      [
+        "one row per stat (4 rows)"
+      ]
+    ],
+    "sourceSelectors": [
+      "#maincontent > div.columns > div.column.main > div:nth-of-type(4)"
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": [
+    {
+      "url": "https://www.kgs.swiss/",
+      "sections": [
+        "s3 (Global figures)"
+      ]
+    }
+  ],
+  "reuseGuidance": "Use for 2-4 numeric highlights. Keep the value bold, not a heading."
+}

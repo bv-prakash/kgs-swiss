@@ -1,0 +1,36 @@
+{
+  "variantName": "cards-industry",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Industry or category navigation tiles",
+    "description": "Linked image tiles with a title overlay and a description revealed on hover/focus, in a 1/2/3-column grid",
+    "source": "Six look-alike linked tiles (image, title overlay, hover description) in a wrapping 3-column grid, each linking to an industry detail page."
+  },
+  "contentPattern": {
+    "structure": "Cell 1: image. Cell 2: H3 title, optional description paragraph, link to the detail page (makes the whole tile clickable)",
+    "rows": [
+      [
+        "Image",
+        "H3 title, description paragraph, link to industry page"
+      ],
+      [
+        "one row per industry (6 rows; 'All Industries' has no description)"
+      ]
+    ],
+    "sourceSelectors": [
+      "#maincontent > div.columns > div.column.main > div.industries-block"
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": [
+    {
+      "url": "https://www.kgs.swiss/",
+      "sections": [
+        "s4 (Across Industries)"
+      ]
+    }
+  ],
+  "reuseGuidance": "Use for image tiles linking to detail pages. A tile without an image (e.g. All Industries) is marked cards-industry-no-image for a solid-color treatment."
+}

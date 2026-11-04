@@ -1,26 +1,84 @@
-import { getRootPath, isMultistore } from '@dropins/tools/lib/aem/configs.js';
-// Dropin Components
-import {
-  Button,
-  provider as UI,
-} from '@dropins/tools/components.js';
-
-// Block-level
-import createModal from '../modal/modal.js';
-import { getMetadata } from '../../scripts/aem.js';
-import { loadFragment } from '../fragment/fragment.js';
+/**
+ * Fetches the footer fragment. Metadata-independent: /content first (local preview),
+ * then the site root (Document Authoring / EDS preview and live).
+ * @returns {Promise<Element|null>} container holding the footer sections
+ */
+async function fetchFooter() {
+  let resp = await fetch('/content/footer.plain.html');
+  if (!resp.ok) resp = await fetch('/footer.plain.html');
+  if (!resp.ok) return null;
+  const container = document.createElement('div');
+  container.innerHTML = await resp.text();
+  // resolve relative image paths against the fragment's own URL
+  container.querySelectorAll('img[src]').forEach((img) => {
+    const src = img.getAttribute('src');
+    if (!/^(https?:|data:|\/)/.test(src)) img.src = new URL(src, resp.url).href;
+  });
+  return container;
+}
 
 /**
- * Toggles all storeSelector sections
- * @param {Element} sections The container element
- * @param {Boolean} expanded Whether the element should be expanded or collapsed
+ * Replaces an icon image with a mask-painted span so the icon takes the link colour
+ * (and its hover colour). The image alt becomes the link's accessible name.
  */
-function toggleStoreDropdown(sections, expanded = false) {
-  sections
-    .querySelectorAll('.storeview-modal .default-content-wrapper > ul > li')
-    .forEach((section) => {
-      section.setAttribute('aria-expanded', expanded);
-    });
+function maskIcon(img) {
+  const icon = document.createElement('span');
+  icon.className = 'footer-icon';
+  icon.setAttribute('aria-hidden', 'true');
+  icon.style.setProperty('--footer-icon', `url("${img.src}")`);
+  const link = img.closest('a');
+  if (link && img.alt && !link.textContent.trim()) link.setAttribute('aria-label', img.alt);
+  img.replaceWith(icon);
+}
+
+/**
+ * Builds the newsletter form from the section's list: label, placeholder, then a link whose
+ * text is the button label and whose URL is the form action.
+ */
+function decorateNewsletter(section) {
+  const list = section.querySelector('ul');
+  if (!list) return;
+  const [labelItem, placeholderItem, submitItem] = [...list.children];
+  const submitLink = submitItem?.querySelector('a');
+  if (!submitLink) return;
+
+  const form = document.createElement('form');
+  form.className = 'footer-newsletter-form';
+  form.action = submitLink.href;
+  form.method = 'post';
+  const inputId = 'footer-newsletter-email';
+  form.innerHTML = `
+    <label class="footer-visually-hidden" for="${inputId}"></label>
+    <input type="email" id="${inputId}" name="email" required autocomplete="email">
+    <button type="submit" class="footer-newsletter-submit"></button>`;
+  form.querySelector('label').textContent = labelItem?.textContent.trim() || '';
+  form.querySelector('input').placeholder = placeholderItem?.textContent.trim() || '';
+  form.querySelector('button').textContent = submitLink.textContent.trim();
+
+  const intro = document.createElement('div');
+  intro.className = 'footer-newsletter-intro';
+  [...section.children].filter((el) => el !== list).forEach((el) => intro.append(el));
+  list.remove();
+  section.append(intro, form);
+}
+
+/**
+ * Smooth-scrolls to the top for in-page "#top" links; PDF links open in a new tab.
+ */
+function decorateLinks(footer) {
+  footer.querySelectorAll('a[href]').forEach((a) => {
+    const href = a.getAttribute('href');
+    if (href === '#top') {
+      a.classList.add('footer-go-top');
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    } else if (/\.pdf($|[?#])/i.test(a.pathname)) {
+      a.target = '_blank';
+      a.rel = 'noopener';
+    }
+  });
 }
 
 /**
@@ -28,145 +86,34 @@ function toggleStoreDropdown(sections, expanded = false) {
  * @param {Element} block The footer block element
  */
 export default async function decorate(block) {
-  const root = getRootPath();
-  // Load Footer as Fragment
-  const footerMeta = getMetadata('footer');
-  const footerPath = footerMeta ? new URL(footerMeta, window.location).pathname : '/footer';
-  const fragment = await loadFragment(footerPath);
+  const fragment = await fetchFooter();
+  if (!fragment) return;
 
-  // decorate footer DOM
   block.textContent = '';
   const footer = document.createElement('div');
+  footer.className = 'footer-inner';
 
-  // Footer content - Store Switcher
-  if (isMultistore()) {
-    footer.innerHTML = `
-      <div class="storeview-switcher-button"></div>
-    `;
+  const sections = [...fragment.children];
+  const names = ['newsletter', 'brand', 'contact', 'certs', 'bottom'];
+  sections.forEach((section, i) => {
+    if (names[i]) section.classList.add(`footer-${names[i]}`);
+  });
 
-    // Container and component refs
-    let modal;
-
-    // Modal Actions
-    const showModal = async (content) => {
-      modal = await createModal([content]);
-      modal.showModal();
-    };
-
-    // Rendering the Store Switcher Modal Content
-    const $storeSwitcherBtn = footer.querySelector(
-      '.storeview-switcher-button',
-    );
-
-    // Store Switcher Modal Content
-    const storeSwitcherPath = '/store-switcher';
-    let fragmentStoreView;
-
-    try {
-      fragmentStoreView = await loadFragment(storeSwitcherPath);
-      if (!fragmentStoreView) throw new Error(`Footer does not render due to Store Switcher fragment (${storeSwitcherPath}) not found`);
-    } catch (error) {
-      console.error('Error loading store switcher fragment:', error);
-      return;
-    }
-
-    // Store Switcher Modal Content
-    const storeSwitcher = document.createElement('div');
-
-    // Return Storename from stores-switcher
-    const selected = [...fragmentStoreView.querySelectorAll('a')].find((a) => {
-      const url = new URL(a.href);
-      return url.pathname.startsWith(root);
-    });
-
-    storeSwitcher.id = 'storeview-modal';
-    while (fragmentStoreView.firstElementChild) {
-      storeSwitcher.append(fragmentStoreView.firstElementChild);
-    }
-
-    // create classes for storeview modal sections
-    const classes = ['storeview-title', 'storeview-list'];
-    classes.forEach((c, i) => {
-      const section = storeSwitcher.children[i];
-      if (section) section.classList.add(`storeview-modal-${c}`);
-    });
-
-    // Store Switcher Modal Content - Store View Title
-    const storeViewTitle = storeSwitcher.querySelector('.storeview-modal-storeview-title');
-    const title = storeViewTitle.querySelector('h3');
-    if (title) {
-      title.className = '';
-      title.closest('h3').classList.add('storeview-modal-storeview-title');
-      title.setAttribute('tabindex', '0');
-    }
-
-    // Storeview List
-    const storeViewList = storeSwitcher.querySelector('.storeview-modal-storeview-list');
-
-    if (storeViewList && storeViewList.children.length) {
-      // Add storeview-selection class to parent UL
-      storeViewList
-        .querySelectorAll(':scope .default-content-wrapper > ul')
-        .forEach((storeView) => {
-          if (storeView.querySelector('ul')) storeView.classList.add('storeview-selection');
-        });
-
-      // if multiple stores exist per region, add class storeviews and click events for accordion
-      storeViewList.querySelectorAll('.default-content-wrapper > ul > li > ul').forEach((storeRegion) => {
-        if (storeRegion.children.length > 1) {
-          if (storeRegion.querySelector('ul')) storeRegion.classList.add('storeviews');
-
-          // Accessiblity: addeventlistener for 'click' and keyboard event and tab indexes
-          storeViewList.querySelectorAll(':scope li').forEach((storeView) => {
-            const link = storeView.closest('a');
-            if (link) link.setAttribute('tabindex', '0');
-            storeView.addEventListener('keydown', (e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                const expanded = storeView.getAttribute('aria-expanded') === 'true';
-                toggleStoreDropdown(storeViewList);
-                storeView.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-              }
-            });
-            storeView.addEventListener('click', () => {
-              const expanded = storeView.getAttribute('aria-expanded') === 'true';
-              toggleStoreDropdown(storeViewList);
-              storeView.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-            });
-          });
-        }
-      });
-
-      // If only one storeview link in region, convert parent UL into the li and remove the child UL
-      storeViewList.querySelectorAll('.default-content-wrapper > ul > li > ul').forEach((storeRegion) => {
-        const li = storeRegion.closest('li');
-
-        if (storeRegion.children.length <= 1) {
-          li.classList.add('storeview-single-store');
-          const ulParent = li.closest('ul');
-          const replacedChild = (storeRegion.firstElementChild);
-          replacedChild.className = 'storeview-single-store';
-
-          ulParent.replaceChild(replacedChild, li);
-          ulParent.setAttribute('tabindex', '0');
-        } else {
-          li.classList.add('storeview-multiple-stores');
-          li.setAttribute('tabindex', '0');
-        }
-      });
-
-      UI.render(Button, {
-        children: `${selected.text}`,
-        'data-testid': 'storeview-switcher-button',
-        className: 'storeview-switcher-button',
-        size: 'medium',
-        variant: 'teritary',
-        onClick: () => {
-          showModal(storeSwitcher);
-        },
-      })($storeSwitcherBtn);
-    }
+  const [newsletter, brand, contact, certs, bottom] = sections;
+  if (newsletter) {
+    decorateNewsletter(newsletter);
+    footer.append(newsletter);
   }
-  while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
+
+  // main row: brand | contact | certifications, separated by dividers
+  const main = document.createElement('div');
+  main.className = 'footer-main';
+  [brand, contact, certs].filter(Boolean).forEach((section) => main.append(section));
+  if (main.children.length) footer.append(main);
+  if (bottom) footer.append(bottom);
+
+  footer.querySelectorAll('.footer-brand li img, .footer-contact li img').forEach(maskIcon);
+  decorateLinks(footer);
 
   block.append(footer);
 }

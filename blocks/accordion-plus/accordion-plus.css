@@ -1,0 +1,115 @@
+/*
+ * accordion-plus: plus/minus toggle list with light divider lines.
+ * Title and divider colors follow the section; on light sections the icon is
+ * grey (red when open) and the body text is dark grey, on dark sections both
+ * use the section text color.
+ */
+.accordion-plus {
+  --accordion-plus-icon-size: 16px;
+  --accordion-plus-icon-color: var(--brand-grey);
+  --accordion-plus-icon-open-color: var(--brand-red);
+  --accordion-plus-body-color: var(--brand-grey-dark);
+  --accordion-plus-divider-color: #d5d9db;
+
+  /* stroke of the source icon-font glyph: 0.122em */
+  --accordion-plus-icon-stroke: calc(var(--accordion-plus-icon-size) * 0.122);
+}
+
+main .section.dark .accordion-plus {
+  --accordion-plus-icon-color: currentcolor;
+  --accordion-plus-icon-open-color: currentcolor;
+  --accordion-plus-body-color: currentcolor;
+
+  margin: 20px 0;
+}
+
+.accordion-plus .accordion-plus-item {
+  border-bottom: 1px solid var(--accordion-plus-divider-color);
+}
+
+.accordion-plus .accordion-plus-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.accordion-plus .accordion-plus-label::-webkit-details-marker {
+  display: none;
+}
+
+/* plus icon: a horizontal and a vertical bar; the vertical bar collapses when open (minus) */
+.accordion-plus .accordion-plus-label::before {
+  content: "";
+  flex: 0 0 auto;
+  width: var(--accordion-plus-icon-size);
+  height: calc(var(--accordion-plus-icon-size) * 1.4286);
+  color: var(--accordion-plus-icon-color);
+  background:
+    linear-gradient(currentcolor 0 0) center / 100% var(--accordion-plus-icon-stroke) no-repeat,
+    linear-gradient(currentcolor 0 0) center / var(--accordion-plus-icon-stroke) var(--accordion-plus-icon-size) no-repeat;
+}
+
+.accordion-plus .accordion-plus-item[open] > .accordion-plus-label {
+  padding-bottom: 0;
+}
+
+.accordion-plus .accordion-plus-item[open] > .accordion-plus-label::before {
+  color: var(--accordion-plus-icon-open-color);
+  background-size: 100% var(--accordion-plus-icon-stroke), var(--accordion-plus-icon-stroke) 0;
+}
+
+.accordion-plus .accordion-plus-label:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 2px;
+}
+
+.accordion-plus .accordion-plus-body {
+  padding: 8px 0 20px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  color: var(--accordion-plus-body-color);
+}
+
+/* EDS wraps the body text in <p>; keep the body typography over the global p rule */
+.accordion-plus .accordion-plus-body > * {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.accordion-plus .accordion-plus-body > * + * {
+  margin-top: 8px;
+}
+
+@media (width >= 768px) {
+  .accordion-plus {
+    --accordion-plus-icon-size: 18px;
+  }
+
+  main .section.dark .accordion-plus {
+    margin: 0 0 40px;
+  }
+
+  .accordion-plus .accordion-plus-label {
+    padding: 20px 0;
+    font-size: 20px;
+    line-height: 22px;
+  }
+
+  /* light sections: first title aligns with the top of the neighbouring column */
+  main .section:not(.dark) .accordion-plus .accordion-plus-item:first-child > .accordion-plus-label {
+    padding-top: 0;
+  }
+
+  .accordion-plus .accordion-plus-body {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}

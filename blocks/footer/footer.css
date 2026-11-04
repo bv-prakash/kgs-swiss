@@ -1,73 +1,562 @@
+/*
+ * KGS footer, measured from https://www.kgs.swiss/
+ * Mobile-first, using the source's breakpoints: 768px (three columns), 1024px (desktop
+ * spacing) and 1200px (full desktop). The newsletter band is edge to edge up to 1246px.
+ */
 footer {
-    background-color: var(--color-neutral-100);
-    font: var(--type-body-2-default-font);
-    letter-spacing: var(--type-body-2-default-letter-spacing);
+  font-family: var(--body-font-family);
+  color: var(--text-color);
+  background-color: var(--background-color);
 }
 
-footer .footer > div {
-    margin: auto;
-    max-width: 1200px;
-    padding: 40px 24px 24px;
+footer p,
+footer ul {
+  margin: 0;
 }
 
-footer .footer p {
-    margin: 0;
+footer ul {
+  list-style: none;
+  padding: 0;
 }
 
-.storeview-switcher-button {
-    background: transparent;
-    padding-left: 0;
+footer .footer-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
-.storeview-modal-storeview-title {
-    margin-bottom: var(--spacing-xxbig);
-    padding-inline-start: var(--spacing-xbig);
+/* icons painted from the authored SVG so they take the link colour */
+footer .footer-icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-color: currentcolor;
+  mask: var(--footer-icon) center / contain no-repeat;
 }
 
-.modal .close-button {
-    top: 40px !important;
-    right: 40px !important;
+/* newsletter: navy band with a white notch in the top-right corner */
+footer .footer-newsletter {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1246px;
+  margin: 0 auto;
+  padding: 40px 16px;
+  background-color: var(--brand-navy);
+  color: #fff;
 }
 
-.storeview-single-store {
-    list-style-type: none;
+footer .footer-newsletter::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 21px;
+  height: 21px;
+  background-color: var(--background-color);
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
 }
 
-.storeview-selection .storeview-multiple-stores {
-    list-style-image: url("../../icons/chevron-right.svg");
-    list-style-position: inside;
+footer .footer-newsletter h2 {
+  margin: 0 0 12px;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: capitalize;
+  color: #fff;
 }
 
-.storeview-selection > li {
-    margin-bottom: var(--spacing-small);
+footer .footer-newsletter-intro p {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 17.14px;
+  color: #fff;
 }
 
-.storeview-multiple-stores > ul {
-    position: relative;
-    width: 100%;
+footer .footer-newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 0;
 }
 
-.storeview-multiple-stores > ul > li {
-    list-style: none;
-    display: none;
+footer .footer-newsletter-form input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: 40px;
+  border: 0;
+  border-bottom: 1px solid #565d70;
+  border-radius: 0;
+  padding: 0;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  background: transparent;
+  outline: none;
 }
 
-.storeview-multiple-stores[aria-expanded="true"] {
-    list-style-image: url("../../icons/chevron-down.svg");
+footer .footer-newsletter-form input::placeholder {
+  color: #c2c2c2;
+  opacity: 1;
 }
 
-.storeview-multiple-stores[aria-expanded="true"] > ul {
-    padding-left: 0;
+footer .footer-newsletter-submit {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  border: 1px solid #fff;
+  border-radius: 0;
+  padding: 10px 16px;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: var(--brand-navy);
+  cursor: pointer;
+  transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
 }
 
-.storeview-multiple-stores[aria-expanded="true"] > ul > li {
-    display: block;
-    list-style-type: none;
-    margin-bottom: var(--spacing-small);
+footer .footer-newsletter-submit:hover,
+footer .footer-newsletter-submit:focus-visible {
+  color: var(--brand-red);
+  background-color: #fff;
 }
 
-@media (min-width: 900px) {
-    footer .footer > div {
-        padding: 40px 32px 24px;
-    }
+/* main row: brand | contact | certifications — stacked full width on phones */
+footer .footer-main {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0 0;
+}
+
+footer .footer-main > div {
+  box-sizing: border-box;
+  padding: 20px 16px;
+}
+
+footer .footer-brand,
+footer .footer-contact {
+  border-bottom: 1px solid #e1e3e5;
+}
+
+footer .footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 27px;
+}
+
+footer .footer-brand img {
+  display: block;
+  width: 101px;
+  height: auto;
+}
+
+footer .footer-brand ul {
+  display: flex;
+  gap: 20px;
+}
+
+/* social and legal links change colour instantly on the source (no fade) */
+footer .footer-brand ul a:any-link {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  color: var(--brand-grey);
+  transition: none;
+}
+
+footer .footer-brand ul a:hover,
+footer .footer-brand ul a:focus-visible {
+  color: var(--brand-red);
+}
+
+footer .footer-contact ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+footer .footer-contact li {
+  position: relative;
+  padding-left: 40px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--brand-grey-dark);
+}
+
+footer .footer-contact li .footer-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--brand-grey);
+}
+
+footer .footer-contact strong {
+  display: inline-block;
+  margin-bottom: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 19px;
+}
+
+footer .footer-contact a:any-link {
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--brand-grey-dark);
+  transition: none;
+}
+
+footer .footer-contact a:hover {
+  color: var(--brand-grey-dark);
+}
+
+/* min-width 0 lets the logo row (and column) shrink below the logos' natural width */
+footer .footer-certs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  min-width: 0;
+}
+
+footer .footer-certs p:first-child {
+  display: flex;
+  flex: 1 1 100%;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* certification logos: muted grey at rest, full colour on hover (as on the source) */
+footer .footer-certs p:first-child img {
+  display: block;
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 117px;
+  height: auto;
+  filter: brightness(1.1) grayscale(0.85);
+  opacity: 0.6;
+  transition: filter 0.4s, box-shadow 0.4s;
+}
+
+footer .footer-certs p:first-child img:hover {
+  filter: none;
+  opacity: 1;
+}
+
+footer .footer-certs p:last-child {
+  margin-left: auto;
+}
+
+footer .footer-certs p:last-child img {
+  display: block;
+  width: 193px;
+  height: auto;
+}
+
+/* bottom row: legal links, copyright, go top on phones */
+footer .footer-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-top: 1px solid #e1e3e5;
+  padding: 20px 16px;
+}
+
+footer .footer-bottom ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 40px;
+  order: -1;
+}
+
+footer .footer-bottom li {
+  line-height: 20px;
+}
+
+footer .footer-bottom > p:first-child {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 17.14px;
+  color: rgb(85 85 85 / 80%);
+}
+
+footer .footer-bottom a:any-link {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--brand-navy);
+  transition: none;
+}
+
+footer .footer-bottom a:hover,
+footer .footer-bottom a:focus-visible {
+  color: var(--brand-red);
+}
+
+/* go top: the north-east arrow keeps its space at rest and appears on hover */
+footer .footer-bottom a.footer-go-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 17px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 23px;
+  transition: color 0.4s ease-in-out;
+}
+
+/* the arrow takes no width on phones (as on the source), 16px from 768px */
+footer .footer-bottom a.footer-go-top::after {
+  content: "";
+  width: 0;
+  height: 16px;
+  background-color: currentcolor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='2.4'%3E%3Cpath d='M3 13 13 3M5 3h8v8'/%3E%3C/svg%3E") center / contain no-repeat;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+}
+
+footer .footer-bottom a.footer-go-top:hover::after,
+footer .footer-bottom a.footer-go-top:focus-visible::after {
+  opacity: 1;
+}
+
+/* breakpoint-exception: the source footer switches to three columns at 768px */
+@media (width >= 768px) {
+  footer .footer-newsletter {
+    gap: 40px;
+    padding: 40px;
+  }
+
+  footer .footer-newsletter::after {
+    width: 41px;
+    height: 41px;
+  }
+
+  footer .footer-newsletter h2 {
+    margin-bottom: 20px;
+    font-size: 40px;
+  }
+
+  footer .footer-newsletter-intro p {
+    font-size: 16px;
+    line-height: 22.86px;
+  }
+
+  /* the source button sits 16px below the top of the e-mail field */
+  footer .footer-newsletter-form {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  footer .footer-newsletter-form input {
+    flex: 0 1 341px;
+    width: auto;
+    height: 60px;
+    font-size: 18px;
+  }
+
+  footer .footer-newsletter-submit {
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 187px;
+    margin-top: 16px;
+    padding: 13px 20px 14px;
+    font-size: 16px;
+    line-height: normal;
+  }
+
+  footer .footer-main,
+  footer .footer-bottom {
+    box-sizing: border-box;
+    width: calc(100% - 40px);
+    max-width: 1246px;
+    margin-inline: auto;
+  }
+
+  footer .footer-main {
+    flex-direction: row;
+    padding: 60px 16px 40px;
+  }
+
+  footer .footer-main > div {
+    padding: 0;
+  }
+
+  footer .footer-brand,
+  footer .footer-contact {
+    border-bottom: 0;
+    border-right: 1px solid #e1e3e5;
+  }
+
+  footer .footer-main > .footer-brand {
+    flex: 0 0 26.66%;
+    align-items: flex-start;
+    gap: 35px;
+    padding-right: 30px;
+  }
+
+  footer .footer-brand img {
+    width: 154px;
+  }
+
+  footer .footer-brand ul a:any-link {
+    height: auto;
+  }
+
+  footer .footer-main > .footer-contact {
+    flex: 0 0 37%;
+    padding: 0 30px;
+  }
+
+  footer .footer-contact strong {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  footer .footer-main > .footer-certs {
+    flex: 1 1 0;
+    align-content: space-between;
+    padding-left: 30px;
+  }
+
+  footer .footer-bottom {
+    display: grid;
+    grid-template-columns: minmax(0, 34fr) minmax(0, 50fr) minmax(0, 16fr);
+    align-items: start;
+    column-gap: 15px;
+  }
+
+  footer .footer-bottom a.footer-go-top::after {
+    width: 16px;
+  }
+
+  footer .footer-bottom > p:first-child {
+    font-size: 16px;
+    line-height: 22.86px;
+  }
+
+  footer .footer-bottom ul {
+    order: 0;
+    gap: 20px 40px;
+  }
+
+  footer .footer-bottom > p:last-child {
+    justify-self: end;
+  }
+}
+
+/* breakpoint-exception: desktop footer spacing starts at 1024px on the source */
+@media (width >= 1024px) {
+  footer .footer-newsletter {
+    flex-direction: row;
+    align-items: center;
+    gap: 90px;
+    padding: 72px 60px;
+  }
+
+  footer .footer-newsletter-intro {
+    flex: 1 1 auto;
+  }
+
+  footer .footer-newsletter h2 {
+    font-size: 30px;
+  }
+
+  footer .footer-newsletter-form {
+    flex: 0 0 548px;
+  }
+
+  footer .footer-main {
+    padding: 100px 0 40px;
+  }
+
+  footer .footer-main > .footer-brand {
+    gap: 54px;
+    padding-right: 60px;
+  }
+
+  footer .footer-brand img {
+    width: 187px;
+  }
+
+  footer .footer-main > .footer-contact {
+    padding: 0 60px;
+  }
+
+  footer .footer-contact ul {
+    gap: 10px;
+  }
+
+  footer .footer-contact li {
+    font-size: 18px;
+    line-height: 25.7px;
+  }
+
+  footer .footer-contact li .footer-icon {
+    top: 3px;
+  }
+
+  footer .footer-contact li:has(a) .footer-icon {
+    top: 10px;
+  }
+
+  footer .footer-contact strong {
+    line-height: 26px;
+  }
+
+  footer .footer-contact a:any-link {
+    line-height: 40px;
+  }
+
+  footer .footer-main > .footer-certs {
+    padding-left: 60px;
+  }
+
+  footer .footer-bottom {
+    padding: 30px 0;
+  }
+
+  footer .footer-bottom ul a:any-link {
+    font-size: 16px;
+    line-height: 19px;
+  }
+
+  footer .footer-bottom li {
+    line-height: 22.86px;
+  }
+}
+
+@media (width >= 1200px) {
+  footer .footer-newsletter h2 {
+    font-size: 40px;
+  }
+
+  footer .footer-bottom {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 0;
+  }
+
+  footer .footer-bottom ul {
+    margin-left: 45px;
+  }
+
+  footer .footer-bottom > p:last-child {
+    margin-left: auto;
+  }
 }

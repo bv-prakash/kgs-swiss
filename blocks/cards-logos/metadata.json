@@ -1,0 +1,36 @@
+{
+  "variantName": "cards-logos",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Brand or partner logo strip",
+    "description": "Flowing, wrapping row of brand logos",
+    "source": "Seven repeating brand logos that flow and wrap to a second row."
+  },
+  "contentPattern": {
+    "structure": "Cell 1: logo image (alt = brand name). Cell 2 (optional): brand name, kept as a visually hidden label when a logo is present",
+    "rows": [
+      [
+        "Logo image (alt = brand name)",
+        "Brand name (optional)"
+      ],
+      [
+        "one row per brand (7 rows)"
+      ]
+    ],
+    "sourceSelectors": [
+      "#maincontent > div.columns > div.column.main > div:nth-of-type(6)"
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": [
+    {
+      "url": "https://www.kgs.swiss/",
+      "sections": [
+        "s5 (Brand logos)"
+      ]
+    }
+  ],
+  "reuseGuidance": "Use for logo walls. Supply alt text or a brand name for accessibility."
+}

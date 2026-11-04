@@ -1,0 +1,36 @@
+{
+  "variantName": "cards-news",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Latest news / article teasers",
+    "description": "Article teasers with image, category tag, linked title and Read More link, in a 1/2/3-column grid",
+    "source": "Dynamic list: each item links to an article detail page and carries a category tag."
+  },
+  "contentPattern": {
+    "structure": "Cell 1: image (optionally linked). Cell 2: category paragraph, linked title paragraph, Read More link",
+    "rows": [
+      [
+        "Image (linked to article)",
+        "Category paragraph 'Events', linked title paragraph, 'Read More' link"
+      ],
+      [
+        "one row per article (3 rows)"
+      ]
+    ],
+    "sourceSelectors": [
+      "#maincontent > div.columns > div.column.main > div:nth-of-type(10)"
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": [
+    {
+      "url": "https://www.kgs.swiss/",
+      "sections": [
+        "s9 (Latest news)"
+      ]
+    }
+  ],
+  "reuseGuidance": "Use for article listings; the image is linked to the article automatically when not already linked."
+}
