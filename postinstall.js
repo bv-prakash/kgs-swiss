@@ -60,6 +60,16 @@ fs.readdirSync('node_modules/@dropins', { withFileTypes: true }).forEach((file) 
   });
 });
 
+// Drop-ins published outside the @dropins scope: copy their built dist/ (scripts + source maps)
+[
+  { from: '@prakash.gurung/commerce-newsletter/dist', to: 'commerce-newsletter' },
+].forEach((dropin) => {
+  fs.cpSync(path.join('node_modules', dropin.from), path.join(dropinsDir, dropin.to), {
+    recursive: true,
+    filter: (src) => fs.statSync(src).isDirectory() || /\.js(\.map)?$/.test(src),
+  });
+});
+
 // Other files to copy
 [
   { from: '@adobe/magento-storefront-event-collector/dist/index.js', to: 'commerce-events-collector.js' },

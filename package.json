@@ -56,7 +56,8 @@
     "@dropins/storefront-product-discovery": "3.1.2",
     "@dropins/storefront-recommendations": "4.0.4",
     "@dropins/storefront-wishlist": "3.5.0",
-    "@dropins/tools": "2.1.0"
+    "@dropins/tools": "2.1.0",
+    "@prakash.gurung/commerce-newsletter": "1.2.0"
   },
   "overrides": {
     "@adobe/alloy": {
