@@ -32,34 +32,26 @@ function maskIcon(img) {
 }
 
 /**
- * Builds the newsletter form from the section's list: label, placeholder, then a link whose
- * text is the button label and whose URL is the form action.
+ * Mounts the newsletter drop-in (normal email form) in the newsletter section.
+ * Every label comes from the newsletter placeholder sheet, so authored copy in the
+ * section is replaced.
  */
-function decorateNewsletter(section) {
-  const list = section.querySelector('ul');
-  if (!list) return;
-  const [labelItem, placeholderItem, submitItem] = [...list.children];
-  const submitLink = submitItem?.querySelector('a');
-  if (!submitLink) return;
-
-  const form = document.createElement('form');
-  form.className = 'footer-newsletter-form';
-  form.action = submitLink.href;
-  form.method = 'post';
-  const inputId = 'footer-newsletter-email';
-  form.innerHTML = `
-    <label class="footer-visually-hidden" for="${inputId}"></label>
-    <input type="email" id="${inputId}" name="email" required autocomplete="email">
-    <button type="submit" class="footer-newsletter-submit"></button>`;
-  form.querySelector('label').textContent = labelItem?.textContent.trim() || '';
-  form.querySelector('input').placeholder = placeholderItem?.textContent.trim() || '';
-  form.querySelector('button').textContent = submitLink.textContent.trim();
-
-  const intro = document.createElement('div');
-  intro.className = 'footer-newsletter-intro';
-  [...section.children].filter((el) => el !== list).forEach((el) => intro.append(el));
-  list.remove();
-  section.append(intro, form);
+async function decorateNewsletter(section) {
+  section.textContent = '';
+  const mount = document.createElement('div');
+  mount.className = 'footer-newsletter-mount';
+  section.append(mount);
+  try {
+    await import('../../scripts/initializers/newsletter.js');
+    const [{ render }, { default: NewsletterContainer }] = await Promise.all([
+      import('@prakash.gurung/commerce-newsletter/render.js'),
+      import('@prakash.gurung/commerce-newsletter/containers/NewsletterContainer.js'),
+    ]);
+    await render.render(NewsletterContainer, {})(mount);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Newsletter drop-in failed to load', error);
+  }
 }
 
 /**
@@ -100,10 +92,7 @@ export default async function decorate(block) {
   });
 
   const [newsletter, brand, contact, certs, bottom] = sections;
-  if (newsletter) {
-    decorateNewsletter(newsletter);
-    footer.append(newsletter);
-  }
+  if (newsletter) footer.append(newsletter);
 
   // main row: brand | contact | certifications, separated by dividers
   const main = document.createElement('div');
@@ -116,4 +105,7 @@ export default async function decorate(block) {
   decorateLinks(footer);
 
   block.append(footer);
+
+  // the drop-in loads after the rest of the footer is shown
+  if (newsletter) decorateNewsletter(newsletter);
 }

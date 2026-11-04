@@ -1,0 +1,88 @@
+{
+  "data": [
+    {
+      "Key": "Newsletter.Form.title",
+      "Value": "Stay connected. Stay ahead."
+    },
+    {
+      "Key": "Newsletter.Form.description",
+      "Value": "Subscribe to our newsletter for updates on product innovations, market insights, and upcoming events."
+    },
+    {
+      "Key": "Newsletter.Form.emailLabel",
+      "Value": "Sign Up for Our Newsletter:"
+    },
+    {
+      "Key": "Newsletter.Form.emailPlaceholder",
+      "Value": "Enter your e-mail here"
+    },
+    {
+      "Key": "Newsletter.Form.submit",
+      "Value": "Subscribe"
+    },
+    {
+      "Key": "Newsletter.Form.submitting",
+      "Value": "Subscribing..."
+    },
+    {
+      "Key": "Newsletter.Form.invalidEmail",
+      "Value": "Please enter a valid email address (Ex: johndoe@domain.com)."
+    },
+    {
+      "Key": "Newsletter.Form.success",
+      "Value": "Thanks for subscribing."
+    },
+    {
+      "Key": "Newsletter.Form.error",
+      "Value": "We couldn't subscribe you. Please try again."
+    },
+    {
+      "Key": "Newsletter.Minified.title",
+      "Value": "Newsletter"
+    },
+    {
+      "Key": "Newsletter.Minified.subscribed",
+      "Value": "Subscribed to the general newsletter."
+    },
+    {
+      "Key": "Newsletter.Minified.unsubscribed",
+      "Value": "Not subscribed."
+    },
+    {
+      "Key": "Newsletter.Minified.edit",
+      "Value": "Edit"
+    },
+    {
+      "Key": "Newsletter.Subscription.title",
+      "Value": "Subscription option"
+    },
+    {
+      "Key": "Newsletter.Subscription.general",
+      "Value": "General Subscription"
+    },
+    {
+      "Key": "Newsletter.Subscription.save",
+      "Value": "SAVE"
+    },
+    {
+      "Key": "Newsletter.Subscription.saving",
+      "Value": "Saving..."
+    },
+    {
+      "Key": "Newsletter.Subscription.saved",
+      "Value": "Subscription saved."
+    },
+    {
+      "Key": "Newsletter.Subscription.error",
+      "Value": "We couldn't update your subscription. Please try again."
+    },
+    {
+      "Key": "Newsletter.Status.loading",
+      "Value": "Loading subscription..."
+    },
+    {
+      "Key": "Newsletter.Status.loadError",
+      "Value": "We couldn't load your subscription. Please try again."
+    }
+  ]
+}
