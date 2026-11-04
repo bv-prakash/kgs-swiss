@@ -1,0 +1,626 @@
+/* columns-notched: text beside an image or a dark navy box, the second panel has a cut top-right corner
+   (source: .industries-view-top and .industries-view-range-tool on the industry pages) */
+
+/* mobile: cells stack */
+.columns-notched {
+  --columns-notched-notch: 21px;
+}
+
+.columns-notched .columns-notched-row {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.columns-notched.columns-notched-has-box .columns-notched-row {
+  gap: 40px;
+}
+
+.columns-notched .columns-notched-row > div {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+/* text cell */
+.columns-notched .columns-notched-text > :last-child {
+  margin-bottom: 0;
+}
+
+.columns-notched .columns-notched-text p {
+  margin: 0 0 20px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4286;
+  color: var(--brand-grey-dark);
+}
+
+.columns-notched.columns-notched-has-image .columns-notched-text p {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.columns-notched .columns-notched-text p.columns-notched-eyebrow {
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--brand-grey);
+}
+
+.columns-notched .columns-notched-text h2 {
+  margin: 0 0 12px;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.22;
+  color: var(--brand-navy);
+}
+
+/* image cell: the image keeps its own size and gets the notch */
+.columns-notched .columns-notched-frame {
+  line-height: 0;
+}
+
+.columns-notched .columns-notched-frame picture {
+  display: block;
+}
+
+.columns-notched .columns-notched-frame img {
+  display: block;
+  width: 100%;
+  max-width: 504px;
+  height: auto;
+  clip-path: polygon(0 0, calc(100% - var(--columns-notched-notch)) 0, 100% var(--columns-notched-notch), 100% 100%, 0 100%);
+}
+
+.columns-notched .columns-notched-frame .columns-notched-desktop-only {
+  display: none;
+}
+
+/* dark notched box */
+.columns-notched .columns-notched-text.columns-notched-box {
+  padding: 40px 16px;
+  background-color: var(--brand-navy);
+  color: #fff;
+  clip-path: polygon(0 0, calc(100% - var(--columns-notched-notch)) 0, 100% var(--columns-notched-notch), 100% 100%, 0 100%);
+}
+
+.columns-notched .columns-notched-box h2 {
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.columns-notched .columns-notched-box p {
+  color: #fff;
+}
+
+.columns-notched .columns-notched-lists {
+  display: flex;
+  gap: 20px;
+}
+
+.columns-notched .columns-notched-lists > * {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.columns-notched .columns-notched-box ul,
+.columns-notched .columns-notched-box ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.columns-notched .columns-notched-box > ul + ul,
+.columns-notched .columns-notched-box > ol + ol {
+  margin-top: 16px;
+}
+
+.columns-notched .columns-notched-box li {
+  margin: 0 0 16px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  color: #fff;
+}
+
+.columns-notched .columns-notched-box li:last-child {
+  margin-bottom: 0;
+}
+/* breakpoint-exception: the source puts the two cells side by side from 768px */
+@media (width >= 768px) {
+  .columns-notched {
+    --columns-notched-notch: 41px;
+  }
+
+  .columns-notched .columns-notched-row {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 26px;
+  }
+
+  .columns-notched.columns-notched-has-box .columns-notched-row {
+    align-items: stretch;
+    gap: 40px;
+  }
+
+  /* equal halves including the box padding */
+  .columns-notched .columns-notched-row > div {
+    flex: 1 1 50%;
+  }
+
+  .columns-notched.columns-notched-has-image .columns-notched-text p {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .columns-notched .columns-notched-text p.columns-notched-eyebrow {
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: 2px;
+    color: rgb(43 55 75 / 50%);
+  }
+
+  .columns-notched .columns-notched-text h2 {
+    margin-bottom: 20px;
+    font-size: 40px;
+  }
+
+  .columns-notched .columns-notched-frame .columns-notched-desktop-only {
+    display: block;
+  }
+
+  .columns-notched .columns-notched-frame .columns-notched-mobile-only {
+    display: none;
+  }
+
+  .columns-notched .columns-notched-text.columns-notched-box {
+    padding: 30px;
+  }
+
+  .columns-notched .columns-notched-box h2 {
+    margin-bottom: 30px;
+  }
+
+  .columns-notched .columns-notched-box li {
+    font-size: 20px;
+    line-height: 20px;
+  }
+}
+
+/* breakpoint-exception: the dark box takes its desktop padding from 1024px */
+@media (width >= 1024px) {
+  .columns-notched .columns-notched-text.columns-notched-box {
+    padding: 72px 60px;
+  }
+}
+
+@media (width >= 1200px) {
+  /* text column is capped at 560px beside the box, as on the source */
+  .columns-notched.columns-notched-has-box .columns-notched-row {
+    gap: 76px;
+  }
+
+  .columns-notched.columns-notched-has-box .columns-notched-row > .columns-notched-text:not(.columns-notched-box) {
+    flex: 1 1 calc(100% - 560px);
+    max-width: 560px;
+  }
+
+  .columns-notched.columns-notched-has-box .columns-notched-row > .columns-notched-box {
+    flex: 1 1 calc(100% - 560px);
+  }
+}
+
+/* --- additions: headings, icon lists, "dark" option, box with a trailing image --- */
+
+.columns-notched .columns-notched-text h3 {
+  margin: 0 0 12px;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 32px;
+  color: var(--brand-navy);
+}
+
+/* icon list (about-us "Our Mission"): ruled rows, 26px icon beside the text */
+.columns-notched .columns-notched-icon-list {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.columns-notched .columns-notched-icon-list li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgb(225 227 229);
+  font-size: 16px;
+  line-height: 1.4286;
+  color: var(--brand-navy);
+}
+
+.columns-notched .columns-notched-icon-list li > p {
+  margin: 0;
+}
+
+.columns-notched .columns-notched-icon-list li picture,
+.columns-notched .columns-notched-icon-list li img,
+.columns-notched .columns-notched-icon-list li .icon {
+  display: block;
+  flex: 0 0 26px;
+  width: 26px;
+  height: 26px;
+}
+
+/* dark: the first text cell is the navy box; the image sits flush beside it
+   (source: .career-kgs-diamond on /careers, .about-purpose on /about-us) */
+.columns-notched.dark .columns-notched-row {
+  gap: 0;
+}
+
+/* phones show the image above the box */
+.columns-notched.dark .columns-notched-media {
+  order: -1;
+}
+
+.columns-notched.dark .columns-notched-text.columns-notched-box {
+  clip-path: none;
+}
+
+.columns-notched.dark .columns-notched-box h2 {
+  margin-bottom: 12px;
+}
+
+/* dark without a call to action (careers): the image is a tablet/desktop extra, the copy keeps
+   16px and the source's 20px tail under the text */
+.columns-notched.dark:not(.columns-notched-cta) .columns-notched-media {
+  display: none;
+}
+
+.columns-notched.dark:not(.columns-notched-cta) .columns-notched-text.columns-notched-box {
+  padding-bottom: 60px;
+}
+
+.columns-notched.dark:not(.columns-notched-cta) .columns-notched-box p {
+  font-size: 16px;
+  line-height: 1.4286;
+}
+
+/* dark with a call to action (about-us): 20px side padding while it is stacked */
+.columns-notched.dark.columns-notched-cta .columns-notched-text.columns-notched-box {
+  padding: 40px 20px;
+}
+
+/* the source's buttons are 14px with an 18px line at every width */
+main .columns-notched .columns-notched-box a.button.primary:any-link,
+main .columns-notched .columns-notched-box a.button.secondary:any-link {
+  font-size: 14px;
+  line-height: 18px;
+}
+
+/* titled text + image (about-us "Celebrating 120 years"): stacked with 40px between until
+   desktop; the image is full width and un-notched. The source image is inline, so 7px of line
+   descender sit under it: reproduced as padding so it does not depend on the rendering mode */
+.columns-notched.columns-notched-titled .columns-notched-row {
+  gap: 40px;
+}
+
+.columns-notched.columns-notched-titled .columns-notched-frame {
+  padding-bottom: 7px;
+}
+
+.columns-notched.columns-notched-titled .columns-notched-frame img {
+  max-width: 100%;
+  clip-path: none;
+}
+
+.columns-notched .columns-notched-box h3 {
+  margin-bottom: 11px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: normal;
+  color: #fff;
+}
+
+/* a link in the box is a white outline button (source: EXPLORE OUR INDUSTRIES) */
+.columns-notched .columns-notched-box .button-wrapper {
+  margin: 20px 0 0;
+}
+
+main .columns-notched .columns-notched-box a.button.primary:any-link,
+main .columns-notched .columns-notched-box a.button.secondary:any-link {
+  border-color: #fff;
+  background-color: var(--brand-navy);
+  color: #fff;
+}
+
+main .columns-notched .columns-notched-box a.button.primary:hover,
+main .columns-notched .columns-notched-box a.button.primary:focus-visible,
+main .columns-notched .columns-notched-box a.button.secondary:hover,
+main .columns-notched .columns-notched-box a.button.secondary:focus-visible {
+  border-color: #fff;
+  background-color: #fff;
+  color: var(--brand-red);
+}
+
+/* box with a trailing image (about-us "Our Vision"): navy text box, image below it */
+.columns-notched .columns-notched-stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.columns-notched .columns-notched-stack .columns-notched-text.columns-notched-box {
+  padding: 40px 20px;
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+}
+
+.columns-notched.columns-notched-has-stack .columns-notched-row {
+  gap: 40px;
+}
+
+.columns-notched.columns-notched-has-stack .columns-notched-text p {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+/* 7px under the image: the source's inline-image line descender */
+.columns-notched .columns-notched-box-media {
+  padding-bottom: 7px;
+  line-height: 0;
+}
+
+.columns-notched .columns-notched-box-media picture {
+  display: block;
+}
+
+.columns-notched .columns-notched-box-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* a lone desktop image is cropped to the source's mobile image proportions on phones */
+.columns-notched .columns-notched-box-media > picture:only-child img {
+  aspect-ratio: 343 / 228;
+  object-fit: cover;
+}
+
+/* two trailing images: the first is for tablet/desktop, the second for mobile */
+.columns-notched .columns-notched-box-media > :first-child:not(:only-child) {
+  display: none;
+}
+
+/* breakpoint-exception: the source switches the dark/stacked layouts at 768px */
+@media (width >= 768px) {
+  .columns-notched .columns-notched-text h3 {
+    margin-bottom: 20px;
+    font-size: 32px;
+    font-weight: 600;
+  }
+
+  .columns-notched .columns-notched-box h3 {
+    margin-bottom: 11px;
+    font-size: 32px;
+  }
+
+  .columns-notched.dark .columns-notched-row {
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .columns-notched.dark .columns-notched-media {
+    order: 0;
+  }
+
+  .columns-notched.dark .columns-notched-text.columns-notched-box {
+    padding: 40px;
+  }
+
+  .columns-notched.dark .columns-notched-box h2 {
+    margin-bottom: 20px;
+  }
+
+  .columns-notched.dark .columns-notched-frame,
+  .columns-notched.dark .columns-notched-frame picture {
+    height: 100%;
+  }
+
+  .columns-notched.dark .columns-notched-frame img {
+    max-width: none;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .columns-notched .columns-notched-box .button-wrapper {
+    margin-top: 20px;
+  }
+
+  main .columns-notched .columns-notched-box a.button.primary:any-link,
+  main .columns-notched .columns-notched-box a.button.secondary:any-link {
+    padding: 13px 20px 14px;
+  }
+
+  /* the stacked pair stays one above the other until 1024px */
+  .columns-notched.columns-notched-has-stack .columns-notched-row {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .columns-notched .columns-notched-stack .columns-notched-text.columns-notched-box {
+    padding: 40px;
+  }
+
+  .columns-notched.columns-notched-has-stack .columns-notched-text p {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .columns-notched .columns-notched-box-media > :first-child:not(:only-child) {
+    display: block;
+  }
+
+  .columns-notched .columns-notched-box-media > :last-child:not(:only-child) {
+    display: none;
+  }
+
+  .columns-notched .columns-notched-box-media > picture:only-child img {
+    aspect-ratio: auto;
+  }
+
+  /* careers: image beside the box from tablet up */
+  .columns-notched.dark:not(.columns-notched-cta) .columns-notched-media {
+    display: block;
+  }
+
+  .columns-notched.dark:not(.columns-notched-cta) .columns-notched-box p {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  /* about-us: the image stays above the box, at its own proportions, until 1024px */
+  .columns-notched.columns-notched-cta {
+    --columns-notched-notch: 21px;
+  }
+
+  .columns-notched.dark.columns-notched-cta .columns-notched-row {
+    flex-direction: column;
+  }
+
+  .columns-notched.dark.columns-notched-cta .columns-notched-row > div {
+    flex: none;
+  }
+
+  .columns-notched.dark.columns-notched-cta .columns-notched-media {
+    order: -1;
+  }
+
+  .columns-notched.dark.columns-notched-cta .columns-notched-frame,
+  .columns-notched.dark.columns-notched-cta .columns-notched-frame picture,
+  .columns-notched.dark.columns-notched-cta .columns-notched-frame img {
+    height: auto;
+  }
+
+  .columns-notched.dark.columns-notched-cta .columns-notched-box h2 {
+    margin-bottom: 12px;
+  }
+
+  /* titled text + image: still stacked on tablets */
+  .columns-notched.columns-notched-titled .columns-notched-row {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .columns-notched.columns-notched-titled .columns-notched-row > div {
+    flex: none;
+  }
+
+  .columns-notched.columns-notched-titled .columns-notched-text p:not(:last-child) {
+    margin-bottom: 26px;
+  }
+}
+
+/* breakpoint-exception: dark box width cap and stacked pair go side by side at 1024px */
+@media (width >= 1024px) {
+  /* both cells grow from zero, so the box padding tips the split its way (634 | 612 at 1440) */
+  .columns-notched.dark .columns-notched-row > div {
+    flex: 1 1 0;
+  }
+
+  .columns-notched.dark .columns-notched-row > .columns-notched-box {
+    max-width: 634px;
+  }
+
+  .columns-notched.dark .columns-notched-text.columns-notched-box {
+    padding: 72px 60px;
+  }
+
+  .columns-notched.columns-notched-has-stack .columns-notched-row {
+    flex-direction: row;
+    gap: 26px;
+  }
+
+  .columns-notched .columns-notched-stack .columns-notched-text.columns-notched-box {
+    padding: 72px 60px;
+    clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%);
+  }
+
+  /* careers: desktop padding plus the 20px tail */
+  .columns-notched.dark:not(.columns-notched-cta) .columns-notched-text.columns-notched-box {
+    padding-bottom: 92px;
+  }
+
+  /* about-us purpose: image beside the box again */
+  .columns-notched.columns-notched-cta {
+    --columns-notched-notch: 41px;
+  }
+
+  .columns-notched.dark.columns-notched-cta .columns-notched-row {
+    flex-direction: row;
+  }
+
+  /* the box grows from (50% - 612px) but never below its 310px button; the image keeps its
+     612px asset width when there is room and gives way first */
+  .columns-notched.dark.columns-notched-cta .columns-notched-row > .columns-notched-box {
+    flex: 1 1 calc(50% - 612px);
+    min-width: auto;
+  }
+
+  .columns-notched.dark.columns-notched-cta .columns-notched-row > .columns-notched-media {
+    flex: 0 1 612px;
+  }
+
+  .columns-notched.dark.columns-notched-cta .columns-notched-media {
+    order: 0;
+  }
+
+  .columns-notched.dark.columns-notched-cta .columns-notched-frame,
+  .columns-notched.dark.columns-notched-cta .columns-notched-frame picture,
+  .columns-notched.dark.columns-notched-cta .columns-notched-frame img {
+    height: 100%;
+  }
+
+  .columns-notched.dark.columns-notched-cta .columns-notched-text.columns-notched-box {
+    padding: 72px 60px;
+  }
+
+  .columns-notched.dark.columns-notched-cta .columns-notched-box h2 {
+    margin-bottom: 20px;
+  }
+
+  /* the source button is a fixed 310px from desktop up */
+  main .columns-notched.columns-notched-cta .columns-notched-box a.button:any-link {
+    min-width: 310px;
+  }
+
+  /* titled text + image side by side, 26px apart */
+  .columns-notched.columns-notched-titled .columns-notched-row {
+    flex-direction: row;
+    gap: 26px;
+  }
+
+  .columns-notched.columns-notched-titled .columns-notched-row > div {
+    flex: 1 1 50%;
+  }
+
+  .columns-notched.columns-notched-titled .columns-notched-text p {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .columns-notched.columns-notched-titled .columns-notched-text p:not(:last-child) {
+    margin-bottom: 22px;
+  }
+}
+
+/* breakpoint-exception: the mission / vision pair takes its desktop text at 1024px */
+@media (width >= 1024px) {
+  .columns-notched .columns-notched-icon-list {
+    margin-top: 40px;
+  }
+
+  .columns-notched.columns-notched-has-stack .columns-notched-text p {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}

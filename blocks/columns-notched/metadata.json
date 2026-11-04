@@ -1,0 +1,64 @@
+{
+  "variantName": "columns-notched",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Text beside an image or a dark info box",
+    "description": "Two fixed cells side by side from 768px (stacked on mobile). Cell 1 is text (optional uppercase eyebrow paragraph or H2, paragraphs). Cell 2 is either an image or a dark navy text box (H2 + lists shown side by side); either way it has a cut-off top-right corner (21px mobile, 41px from 768px). Option dark: the first text cell is the navy box (white text, optional white outline button) butted against the image with no gap; image above the box on mobile, side by side from 768px, box capped at 634px from 1024px. A second text cell that ends with an image renders as the navy notched box with that image directly underneath (stacked until 1024px, halves with a 26px gap from 1024px). A list whose items all start with an icon renders as a ruled icon list.",
+    "source": "Industry pages: .industries-view-top (text | image) and .industries-view-range-tool (text | dark .clip-box with two lists). Careers: .career-kgs-diamond (dark). About us: .about-purpose (dark), .about-our-mission (text + icon list | navy box with trailing image)."
+  },
+  "contentPattern": {
+    "structure": "1 row x 2 cells: text | image, or text | text (H2 + lists)",
+    "rows": [
+      [
+        "Text: eyebrow paragraph or H2, paragraphs",
+        "Image (optional second image = mobile crop) OR H2 + one or more lists"
+      ],
+      [
+        "Text (H2/H3, paragraphs, optional icon list, optional link)",
+        "Image OR text box (H2/H3, paragraphs, optional trailing image)"
+      ]
+    ],
+    "sourceSelectors": [
+      "#maincontent .industries-view > .content > div:nth-of-type(1)",
+      "#maincontent .industries-view > .content > div.industries-view-range-tool"
+    ]
+  },
+  "options": [
+    {
+      "class": "dark",
+      "label": "Dark"
+    }
+  ],
+  "memberVariantIds": [],
+  "usage": [
+    {
+      "url": "https://www.kgs.swiss/industries/stone-construction",
+      "pagePath": "/industries/stone-construction",
+      "sections": [
+        "s2 (Intro text with image)",
+        "s4 (Applications and Tools & Systems)"
+      ],
+      "lastUsed": "2026-11-04"
+    },
+    {
+      "url": "https://www.kgs.swiss/careers/",
+      "pagePath": "/careers/index",
+      "sections": [
+        "s2 (Careers at KGS Diamond, dark)"
+      ],
+      "lastUsed": "2026-11-04"
+    },
+    {
+      "url": "https://www.kgs.swiss/about-us",
+      "pagePath": "/about-us",
+      "sections": [
+        "s2 (Our Purpose, dark)",
+        "s4 (Celebrating 120 years)",
+        "s5 (Our Mission / Our Vision)"
+      ],
+      "lastUsed": "2026-11-04"
+    }
+  ],
+  "reuseGuidance": "Use for a fixed text + notched image pair, or text + dark notched box with lists. A second cell without an image becomes the dark box automatically; two images in the image cell are desktop then mobile. Add the dark option when the text cell itself is the navy panel beside a photo. End the second (box) cell with an image to place a photo under the navy box."
+}

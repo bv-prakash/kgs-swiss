@@ -1,0 +1,221 @@
+/* carousel-image-panel: fixed image beside a navy panel whose text slides switch with dash tabs
+   (source: .industries-slider on the industry pages) */
+
+/* mobile and tablet: image on top, panel below; the whole block has a cut top-right corner */
+.carousel-image-panel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  clip-path: polygon(0 0, calc(100% - 21px) 0, 100% 21px, 100% 100%, 0 100%);
+}
+
+.carousel-image-panel .carousel-image-panel-media {
+  line-height: 0;
+}
+
+.carousel-image-panel .carousel-image-panel-media picture {
+  display: block;
+  height: 100%;
+}
+
+.carousel-image-panel .carousel-image-panel-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel-image-panel .carousel-image-panel-media .carousel-image-panel-desktop-only {
+  display: none;
+}
+
+.carousel-image-panel .carousel-image-panel-panel {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+  padding: 30px 16px;
+  background-color: var(--brand-navy);
+  color: #fff;
+}
+
+/* all slides share one grid cell so the panel keeps the tallest slide's height */
+.carousel-image-panel .carousel-image-panel-slides {
+  display: grid;
+  touch-action: pan-y;
+}
+
+.carousel-image-panel .carousel-image-panel-slide {
+  grid-area: 1 / 1;
+  min-width: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(24px);
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0s linear 0.4s;
+}
+
+.carousel-image-panel .carousel-image-panel-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0s;
+}
+
+.carousel-image-panel .carousel-image-panel-slide h1,
+.carousel-image-panel .carousel-image-panel-slide h2,
+.carousel-image-panel .carousel-image-panel-slide h3,
+.carousel-image-panel .carousel-image-panel-slide h4,
+.carousel-image-panel .carousel-image-panel-slide h5,
+.carousel-image-panel .carousel-image-panel-slide h6 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.22;
+  color: #fff;
+}
+
+.carousel-image-panel .carousel-image-panel-slide p {
+  margin: 0 0 20px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #fff;
+}
+
+/* "read more" link: white uppercase label with a north-east arrow (source: .read-more-link, kgs-icon) */
+.carousel-image-panel .carousel-image-panel-slide a:any-link {
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.carousel-image-panel .carousel-image-panel-slide p:has(> a:only-child) a:any-link::after {
+  content: "";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-left: 8px;
+  vertical-align: -0.1em;
+  background-color: currentcolor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 15'%3E%3Cpath d='M2 13 12.5 2.5M4 2h9v9' fill='none' stroke='%23000' stroke-width='1.7'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* a closing "read more" paragraph sits flush; a closing text paragraph keeps its 20px
+   (the source ends those slides with an empty paragraph) */
+.carousel-image-panel .carousel-image-panel-slide > :last-child:not(p),
+.carousel-image-panel .carousel-image-panel-slide > p:last-child:has(> a:only-child) {
+  margin-bottom: 0;
+}
+
+/* dash tabs: a tall transparent hit area around a thin bar */
+.carousel-image-panel .carousel-image-panel-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.carousel-image-panel .carousel-image-panel-tab {
+  position: relative;
+  box-sizing: content-box;
+  width: 40px;
+  height: 19px;
+  margin: 0 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.carousel-image-panel .carousel-image-panel-tab::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  transform: translateY(-50%);
+  background-color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-image-panel .carousel-image-panel-tab[aria-selected="true"]::after {
+  background-color: var(--brand-red);
+}
+
+.carousel-image-panel .carousel-image-panel-tab:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-image-panel .carousel-image-panel-slide,
+  .carousel-image-panel .carousel-image-panel-slide.is-active {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* breakpoint-exception: text and tab sizes step up at 768px on the source */
+@media (width >= 768px) {
+  .carousel-image-panel .carousel-image-panel-media .carousel-image-panel-desktop-only {
+    display: block;
+  }
+
+  .carousel-image-panel .carousel-image-panel-media .carousel-image-panel-mobile-only {
+    display: none;
+  }
+
+  .carousel-image-panel .carousel-image-panel-slide h1,
+  .carousel-image-panel .carousel-image-panel-slide h2,
+  .carousel-image-panel .carousel-image-panel-slide h3,
+  .carousel-image-panel .carousel-image-panel-slide h4,
+  .carousel-image-panel .carousel-image-panel-slide h5,
+  .carousel-image-panel .carousel-image-panel-slide h6 {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+
+  .carousel-image-panel .carousel-image-panel-slide p {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .carousel-image-panel .carousel-image-panel-tab {
+    width: 25px;
+    margin: 0 2.5px;
+  }
+
+  .carousel-image-panel .carousel-image-panel-tab::after {
+    height: 4px;
+  }
+}
+
+/* breakpoint-exception: image and panel sit side by side from 1024px */
+@media (width >= 1024px) {
+  .carousel-image-panel {
+    flex-direction: row;
+    align-items: stretch;
+    clip-path: polygon(0 0, calc(100% - 41px) 0, 100% 41px, 100% 100%, 0 100%);
+  }
+
+  .carousel-image-panel .carousel-image-panel-media {
+    flex: 1 1 calc(100% - 504px);
+    max-width: 504px;
+  }
+
+  .carousel-image-panel .carousel-image-panel-panel {
+    flex: 1 1 calc(100% - 504px);
+    padding: 40px;
+  }
+
+  /* tabs sit at the bottom right of the panel */
+  .carousel-image-panel .carousel-image-panel-tabs {
+    justify-content: flex-end;
+    margin-top: auto;
+    padding-top: 33px;
+  }
+}

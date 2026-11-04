@@ -29,6 +29,14 @@
       "sections": [
         "s10 (Promo panels)"
       ]
+    },
+    {
+      "url": "https://www.kgs.swiss/industries/stone-construction",
+      "pagePath": "/industries/stone-construction",
+      "sections": [
+        "s6 (Promo panels)"
+      ],
+      "lastUsed": "2026-11-04"
     }
   ],
   "reuseGuidance": "Use for 2 text-only promotional panels with a CTA each."

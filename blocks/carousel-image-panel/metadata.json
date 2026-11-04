@@ -1,0 +1,39 @@
+{
+  "variantName": "carousel-image-panel",
+  "baseBlock": "carousel",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Fixed image with sliding text highlights",
+    "description": "A fixed image beside (from 1024px) or above a dark navy panel. Each row text cell is a slide (H4 + paragraph); dash tabs switch slides (red = active). Keyboard accessible tabs (arrow keys, Home/End), swipe on touch, no autoplay. The block has a cut-off top-right corner.",
+    "source": "Industry pages: .industries-slider (Page Builder slick slider with dots, autoplay off)."
+  },
+  "contentPattern": {
+    "structure": "One row per slide: image cell | text cell. Only the first row image is used; later image cells may be empty",
+    "rows": [
+      [
+        "Image (fixed; optional second image = mobile crop)",
+        "H4 title, paragraph"
+      ],
+      [
+        "(empty)",
+        "H4 title, paragraph"
+      ]
+    ],
+    "sourceSelectors": [
+      "#maincontent .industries-view > .content > div:nth-of-type(2)"
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": [
+    {
+      "url": "https://www.kgs.swiss/industries/stone-construction",
+      "pagePath": "/industries/stone-construction",
+      "sections": [
+        "s3 (Image with tab/dot slider)"
+      ],
+      "lastUsed": "2026-11-04"
+    }
+  ],
+  "reuseGuidance": "Use when one static image accompanies several short text slides. For full image slides use carousel."
+}

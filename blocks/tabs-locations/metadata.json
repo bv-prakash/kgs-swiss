@@ -1,0 +1,44 @@
+{
+  "variantName": "tabs-locations",
+  "baseBlock": "tabs",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Office finder: region tabs, office cards and a map",
+    "description": "From 768px: underlined region tab bar (ARIA tablist, arrow keys), then a sideways-scrolling row of 398px grey office cards (country label above, bold uppercase company, pin + address) with square navy arrow buttons and a white fade, then a 610px Leaflet map with one pin per office coloured by type, and a 3-item legend (manufacturing red, sales navy, conversion grey). Clicking a card or pin turns the card navy with a cut corner and opens a popup (company, type, address, phone, e-mail). Phones: an accordion of regions (plus / red minus), the open region's cards stacked in a 398px scroll box (the active card also shows type, phone and e-mail), the map below at 375px, no legend. Leaflet (unpkg CDN) and the map tiles load only when the block is within 300px of the viewport; zooming is disabled as on the source.",
+    "source": "About us and Contact us: .about-map (.abouts-us-map-tabs, .cards-wrapper, #map Leaflet, .map-legend)."
+  },
+  "contentPattern": {
+    "structure": "One row per office: region | office details | marker type and coordinates",
+    "rows": [
+      [
+        "Europe (several regions comma-separated, e.g. Europe, Global)",
+        "<h4>Switzerland</h4><p><strong>KGS DIAMOND GROUP SA</strong></p><p>Production of Metallised Fabrics and Diamond Cutting Blades</p><p>ZI Pra-de-Plan 15, 1618 Châtel-St-Denis, Switzerland</p><p><a href=\"tel:+41219670000\">+41 21 967 0000</a></p><p><a href=\"mailto:info@kgs.swiss\">info@kgs.swiss</a></p>",
+        "<p>manufacturing</p><p>46.52, 6.89</p>"
+      ],
+      [
+        "one row per office"
+      ]
+    ],
+    "sourceSelectors": [
+      "#maincontent .column.main > div:nth-of-type(7) .about-map",
+      "#maincontent .column.main > div:nth-of-type(3) .about-map"
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": [
+    {
+      "url": "https://www.kgs.swiss/about-us",
+      "pagePath": "/about-us",
+      "sections": ["s7 (Our Global Presence)"],
+      "lastUsed": "2026-11-04"
+    },
+    {
+      "url": "https://www.kgs.swiss/contact-us/",
+      "pagePath": "/contact-us/index",
+      "sections": ["s3 (Our Global Presence)"],
+      "lastUsed": "2026-11-04"
+    }
+  ],
+  "reuseGuidance": "Use for any list of offices or sites grouped by region that should appear on a map. Tabs follow the order regions are first named; consecutive offices in the same country share one country label. Marker type words: manufacturing, sales, conversion (default sales). Offices without valid coordinates still get a card but no pin."
+}

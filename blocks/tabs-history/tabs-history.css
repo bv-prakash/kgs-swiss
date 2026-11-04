@@ -1,0 +1,255 @@
+/* tabs-history: period tabs over a text | image panel, white on the dark section
+   (source: .kgs-history .kgs-history-tabs on /about-us) */
+
+.tabs-history {
+  color: #fff;
+}
+
+/* tab bar: scrolls sideways when the periods do not fit */
+.tabs-history .tabs-history-list {
+  display: flex;
+  overflow-x: auto;
+  border-bottom: 1px solid rgb(255 255 255 / 20%);
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.tabs-history .tabs-history-list::-webkit-scrollbar {
+  display: none;
+}
+
+.tabs-history .tabs-history-tab {
+  flex: 0 0 auto;
+  margin: 0 20px 0 0;
+  padding: 0 14px 12px 13px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: none;
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  white-space: nowrap;
+  color: rgb(255 255 255 / 60%);
+  cursor: pointer;
+}
+
+.tabs-history .tabs-history-tab:last-child {
+  margin-right: 0;
+}
+
+.tabs-history .tabs-history-tab[aria-selected="true"] {
+  border-bottom-color: #fff;
+  color: #fff;
+}
+
+.tabs-history .tabs-history-tab:hover {
+  color: #fff;
+}
+
+.tabs-history .tabs-history-tab:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -2px;
+}
+
+.tabs-history .tabs-history-panels {
+  padding: 20px 0 0;
+}
+
+.tabs-history .tabs-history-panel[hidden] {
+  display: none;
+}
+
+.tabs-history .tabs-history-panel:focus-visible {
+  outline: 1px dashed rgb(255 255 255 / 60%);
+  outline-offset: 4px;
+}
+
+.tabs-history .tabs-history-title {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  color: #fff;
+}
+
+.tabs-history .tabs-history-body {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.tabs-history .tabs-history-text > :last-child {
+  margin-bottom: 0;
+}
+
+.tabs-history .tabs-history-text h1,
+.tabs-history .tabs-history-text h2,
+.tabs-history .tabs-history-text h3,
+.tabs-history .tabs-history-text h4,
+.tabs-history .tabs-history-text h5,
+.tabs-history .tabs-history-text h6 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  color: #fff;
+}
+
+.tabs-history .tabs-history-text p,
+.tabs-history .tabs-history-text li {
+  font-size: 14px;
+  line-height: 20px;
+  color: rgb(255 255 255 / 80%);
+}
+
+.tabs-history .tabs-history-text p {
+  margin: 0 0 12px;
+}
+
+.tabs-history .tabs-history-text ul {
+  margin: 0 0 12px;
+  padding: 0 0 0 40px;
+  list-style: disc;
+}
+
+.tabs-history .tabs-history-text li {
+  margin: 0 0 12px;
+}
+
+/* the source column ends with an empty 14px-margin heading under the image */
+.tabs-history .tabs-history-media {
+  padding-bottom: 14px;
+  text-align: center;
+}
+
+/* 7px under the image: the source's inline-image line descender */
+.tabs-history .tabs-history-frame {
+  margin: 0 0 14px;
+  padding-bottom: 7px;
+  line-height: 0;
+}
+
+.tabs-history .tabs-history-frame picture {
+  display: block;
+}
+
+.tabs-history .tabs-history-frame img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.tabs-history .tabs-history-frame .tabs-history-desktop-only {
+  display: none;
+}
+
+.tabs-history .tabs-history-caption {
+  margin: 0 0 14px;
+  font-size: 12px;
+  line-height: 18px;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 60%);
+}
+
+/* breakpoint-exception: the source puts text and image side by side from 768px */
+@media (width >= 768px) {
+  .tabs-history .tabs-history-title {
+    margin-bottom: 10px;
+    font-size: 24px;
+    line-height: 24px;
+  }
+
+  .tabs-history .tabs-history-body {
+    flex-direction: row;
+    gap: 0;
+  }
+
+  .tabs-history .tabs-history-body > * {
+    flex: 1 1 50%;
+    min-width: 0;
+  }
+
+  .tabs-history .tabs-history-text h1,
+  .tabs-history .tabs-history-text h2,
+  .tabs-history .tabs-history-text h3,
+  .tabs-history .tabs-history-text h4,
+  .tabs-history .tabs-history-text h5,
+  .tabs-history .tabs-history-text h6 {
+    font-size: 20px;
+  }
+
+  .tabs-history .tabs-history-text p,
+  .tabs-history .tabs-history-text li {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .tabs-history .tabs-history-frame .tabs-history-desktop-only {
+    display: block;
+  }
+
+  .tabs-history .tabs-history-frame .tabs-history-mobile-only {
+    display: none;
+  }
+
+  .tabs-history .tabs-history-frame img {
+    width: 353px;
+  }
+}
+
+/* breakpoint-exception: desktop tab sizes and the 1024px-wide centred panel start at 1024px */
+@media (width >= 1024px) {
+  /* the underline spans the label only; 26px either side of it plus a 40px gap between tabs */
+  .tabs-history .tabs-history-tab {
+    margin: 0 66px 0 26px;
+    font-size: 20px;
+    line-height: 20px;
+  }
+
+  .tabs-history .tabs-history-tab:last-child {
+    margin-right: 26px;
+  }
+
+  .tabs-history .tabs-history-panels {
+    padding: 50px 16px 53px;
+  }
+
+  .tabs-history .tabs-history-panel {
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+
+  .tabs-history .tabs-history-title {
+    margin-bottom: 20px;
+  }
+
+  .tabs-history .tabs-history-body {
+    gap: 28px;
+  }
+
+  .tabs-history .tabs-history-body > .tabs-history-text {
+    flex: 1 1 calc(50% - 353px);
+  }
+
+  .tabs-history .tabs-history-body > .tabs-history-media {
+    flex: 1 1 calc(50% - 353px);
+  }
+
+  .tabs-history .tabs-history-text p,
+  .tabs-history .tabs-history-text li {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .tabs-history .tabs-history-frame {
+    margin-bottom: 20px;
+  }
+
+  .tabs-history .tabs-history-caption {
+    font-size: 16px;
+    line-height: 1;
+  }
+}

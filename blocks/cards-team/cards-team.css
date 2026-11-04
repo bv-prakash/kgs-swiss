@@ -1,0 +1,88 @@
+/* cards-team: people grid (square portrait, uppercase role, bold name); 2 per row on phones,
+   4 per row from 768px, 80px between each group of four (source: .about-team) */
+
+.cards-team > ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 19px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* the source lays people out in groups of four with 80px between groups */
+.cards-team .cards-team-item:nth-child(4n + 5),
+.cards-team .cards-team-item:nth-child(4n + 6) {
+  margin-top: 60px;
+}
+
+.cards-team .cards-team-image {
+  margin: 0 0 12px;
+  line-height: 0;
+}
+
+.cards-team .cards-team-image picture {
+  display: block;
+}
+
+.cards-team .cards-team-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.cards-team .cards-team-body > * {
+  margin: 0 0 8px;
+}
+
+.cards-team .cards-team-role {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  text-transform: uppercase;
+  color: var(--brand-grey-dark);
+}
+
+.cards-team .cards-team-name {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+  color: var(--brand-navy);
+}
+
+.cards-team .cards-team-name strong,
+.cards-team .cards-team-name b {
+  font-weight: inherit;
+}
+
+@media (width >= 768px) {
+  .cards-team > ul {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    row-gap: 80px;
+  }
+
+  .cards-team .cards-team-item:nth-child(4n + 5),
+  .cards-team .cards-team-item:nth-child(4n + 6) {
+    margin-top: 0;
+  }
+}
+
+/* breakpoint-exception: desktop gutter, image spacing and role size switch at 1024px */
+@media (width >= 1024px) {
+  .cards-team > ul {
+    column-gap: 26px;
+  }
+
+  .cards-team .cards-team-image {
+    margin-bottom: 20px;
+  }
+
+  /* every role reserves two lines, so single-line roles still align the names */
+  .cards-team .cards-team-role {
+    min-height: 40px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+}

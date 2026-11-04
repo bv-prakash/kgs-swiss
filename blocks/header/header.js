@@ -17,6 +17,13 @@ async function fetchNav() {
     const src = img.getAttribute('src');
     if (!/^(https?:|data:|\/)/.test(src)) img.src = new URL(src, resp.url).href;
   });
+  // the local preview serves pages under /content: keep root links pointing at those pages
+  if (window.location.pathname.startsWith('/content/')) {
+    container.querySelectorAll('a[href^="/"]:not([href^="//"])').forEach((a) => {
+      const href = a.getAttribute('href');
+      if (!href.startsWith('/content/')) a.setAttribute('href', href === '/' ? '/content/index' : `/content${href}`);
+    });
+  }
   return container;
 }
 

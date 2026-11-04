@@ -29,6 +29,14 @@
       "sections": [
         "s1 (Hero banner)"
       ]
+    },
+    {
+      "url": "https://www.kgs.swiss/industries/stone-construction",
+      "pagePath": "/industries/stone-construction",
+      "sections": [
+        "s1 (Industry banner)"
+      ],
+      "lastUsed": "2026-11-04"
     }
   ],
   "reuseGuidance": "Use for the single page-opening banner; for heroes without a background photo use the base hero block."

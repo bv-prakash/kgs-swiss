@@ -569,12 +569,32 @@ main > .section.hero-banner-container {
   margin-bottom: 40px;
 }
 
+/* the promo panels close every page 40px above the footer, at every width */
+main > .section.cards-promo-container {
+  margin-bottom: 40px;
+}
+
+/* inner-page (compact) banners leave 40 / 60 / 100px before the first section */
+@media (width >= 768px) {
+  main > .section.hero-banner-container:has(.hero-banner.compact) {
+    margin-bottom: 60px;
+  }
+}
+
+/* breakpoint-exception: matches the compact banner's desktop switch at 1024px */
+@media (width >= 1024px) {
+  main > .section.hero-banner-container:has(.hero-banner.compact) {
+    margin-bottom: 100px;
+  }
+}
+
 main .default-content-wrapper > p:last-child {
   margin-bottom: 0;
 }
 
 /* eyebrow: the short label above a heading, or alone above a block */
 main .default-content-wrapper > p:has(+ h2),
+main .default-content-wrapper > p:has(+ h4),
 main .section.centered .default-content-wrapper > p:only-child {
   margin-bottom: 8px;
   font-size: var(--eyebrow-font-size);
@@ -589,8 +609,21 @@ main .section.centered .default-content-wrapper > p:only-child {
   margin-bottom: 20px;
 }
 
+/* a label + h4 lead-in (e.g. above the product slider) sits tight on its heading */
+main .default-content-wrapper > p:has(+ h4) {
+  margin-bottom: 0;
+}
+
+main .default-content-wrapper > p + h4 {
+  margin: 0 0 20px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: normal;
+}
+
 @media (width >= 768px) {
   main .default-content-wrapper > p:has(+ h2),
+  main .default-content-wrapper > p:has(+ h4),
   main .section.centered .default-content-wrapper > p:only-child {
     line-height: 20px;
   }
@@ -868,6 +901,102 @@ main .section[data-margin="xxhuge"] {
     margin: var(--spacing-xxhuge) 0;
 }
 
+/* split on its own (Contact Us): heading, text and block left, the photo right with a cut
+   corner. Phones hide the photo; the source keeps its 40px column gap above the text. */
+main > .section.split:not(.dark, .light-grey) {
+  padding-top: 40px;
+  margin-bottom: 80px;
+}
+
+main .section.split:not(.dark, .light-grey) h2 {
+  margin-bottom: 0;
+}
+
+main .section.split:not(.dark, .light-grey) .default-content-wrapper > p {
+  margin-bottom: 20px;
+  color: var(--brand-grey-dark);
+}
+
+main .section.split:not(.dark, .light-grey) > .default-content-wrapper:has(> p > picture + picture) {
+  display: none;
+}
+
+main .section.split:not(.dark, .light-grey) p:has(> picture + picture) {
+  margin: 0;
+  line-height: 0;
+  clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%);
+}
+
+main .section.split:not(.dark, .light-grey) p:has(> picture + picture) picture:last-child {
+  display: none;
+}
+
+main .section.split:not(.dark, .light-grey) p:has(> picture + picture) img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (width >= 768px) {
+  main > .section.split:not(.dark, .light-grey) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto 1fr;
+    column-gap: 26px;
+    align-items: start;
+    box-sizing: border-box;
+    max-width: var(--content-max-width);
+    margin: 0 auto 100px;
+    padding: 0 var(--content-gutter);
+  }
+
+  main > .section.split:not(.dark, .light-grey) > div {
+    grid-column: 1;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  main > .section.split:not(.dark, .light-grey) > .default-content-wrapper:has(> p > picture + picture) {
+    display: block;
+    grid-column: 2;
+    grid-row: 1 / -1;
+  }
+
+  main .section.split:not(.dark, .light-grey) h2 {
+    margin-bottom: 20px;
+  }
+
+  main .section.split:not(.dark, .light-grey) .default-content-wrapper > p {
+    font-size: 18px;
+    line-height: 26px;
+  }
+}
+
+/* office map section (Contact Us, About Us): small eyebrow on phones, tight heading until desktop */
+main .section.tabs-locations-container .default-content-wrapper > p:has(+ h2) {
+  font-size: 12px;
+  line-height: 12px;
+}
+
+main .section.tabs-locations-container .default-content-wrapper > h2 {
+  margin-bottom: 12px;
+}
+
+@media (width >= 768px) {
+  main .section.tabs-locations-container .default-content-wrapper > p:has(+ h2) {
+    font-size: var(--eyebrow-font-size);
+    line-height: 20px;
+  }
+}
+
+/* breakpoint-exception: the source restores the 40px heading gap with its desktop layout at 1024px */
+@media (width >= 1024px) {
+  main .section.tabs-locations-container .default-content-wrapper > h2 {
+    margin-bottom: 40px;
+  }
+}
+
 /* section metadata - styles - end */
 
 /* news teaser heading row: eyebrow + heading left, "view all" button right */
@@ -922,6 +1051,108 @@ main .section.cards-news-container .default-content-wrapper a.button:any-link {
     width: 14px;
     height: 14px;
     margin-top: -7px;
+  }
+}
+
+/* listing pages (industries, news): the teaser grid closes with the source's empty pager
+   (40px / 60px from 768px plus a 6.84px line box) and the 40px bottom padding of main */
+main > .section.carousel-image-panel-container.cards-news-container,
+main > .section.cards-news-container:has(> .default-content-wrapper > ul:only-child) {
+  margin-bottom: 87px;
+}
+
+/* industries: the highlights slider keeps a section-sized gap above the listing */
+main .section > .carousel-image-panel-wrapper + .cards-news-wrapper {
+  margin-top: var(--section-spacing);
+}
+
+/* news: News / Stories tab bar above the listing (source: .news-toolbar) */
+main .section.cards-news-container > .default-content-wrapper:has(> ul:only-child) {
+  display: block;
+
+  /* 20px under the tabs, the 38px the source's sort-by select takes, then a 20px gap */
+  margin-bottom: 78px;
+}
+
+main .section.cards-news-container > .default-content-wrapper > ul:only-child {
+  margin: 0;
+  padding: 0 0 10px;
+  border-bottom: 1px solid rgb(43 55 75 / 20%);
+  list-style: none;
+  text-align: center;
+}
+
+main .section.cards-news-container > .default-content-wrapper > ul:only-child > li {
+  display: inline-block;
+  margin: 0 49px;
+}
+
+main .section.cards-news-container > .default-content-wrapper > ul:only-child a:any-link {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  color: rgb(105 116 124 / 50%);
+  text-decoration: none;
+}
+
+/* the first tab is the listing the bar sits on (News) */
+main .section.cards-news-container > .default-content-wrapper > ul:only-child > li:first-child a:any-link,
+main .section.cards-news-container > .default-content-wrapper > ul:only-child a:hover,
+main .section.cards-news-container > .default-content-wrapper > ul:only-child a:focus-visible {
+  color: var(--brand-navy);
+}
+
+/* the active tab's 2px navy bar lies over the bar's bottom border */
+main .section.cards-news-container > .default-content-wrapper > ul:only-child > li:first-child a:any-link {
+  position: relative;
+}
+
+main .section.cards-news-container > .default-content-wrapper > ul:only-child > li:first-child a:any-link::after {
+  content: "";
+  position: absolute;
+  bottom: -13px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--brand-navy);
+}
+
+/* the source spaces news teasers 40px apart on phones */
+main .section.cards-news-container:has(> .default-content-wrapper > ul:only-child) .cards-news > ul {
+  row-gap: 40px;
+}
+
+@media (width >= 768px) {
+  main > .section.carousel-image-panel-container.cards-news-container,
+  main > .section.cards-news-container:has(> .default-content-wrapper > ul:only-child) {
+    margin-bottom: 107px;
+  }
+
+  main .section.cards-news-container > .default-content-wrapper:has(> ul:only-child) {
+    margin-bottom: 40px;
+  }
+
+  /* tabs sit on the bar's baseline; the bar is as tall as the source's 42px sort-by select */
+  main .section.cards-news-container > .default-content-wrapper > ul:only-child {
+    display: flex;
+    align-items: flex-end;
+    min-height: 42px;
+    text-align: left;
+  }
+
+  /* the tab's own line metrics plus 4px stand in for the source's 23.8px line box,
+     so the result does not depend on the parent strut (quirks vs standards mode) */
+  main .section.cards-news-container > .default-content-wrapper > ul:only-child > li {
+    display: block;
+    margin: 0 40px;
+    padding-bottom: 4px;
+    font-size: 20px;
+    line-height: 20px;
+  }
+
+  main .section.cards-news-container > .default-content-wrapper > ul:only-child a:any-link {
+    font-size: 20px;
+    line-height: 20px;
   }
 }
 
@@ -1005,3 +1236,246 @@ body.columns main > .section:empty {
 main[hidden] {
   display: none !important;
 }
+
+/* label + h4 lead-in reaches its larger size from 768px */
+@media (width >= 768px) {
+  main .default-content-wrapper > p + h4 {
+    margin-bottom: 40px;
+    font-size: 24px;
+  }
+}
+
+/* --- careers / about-us sections (source: /careers, /about-us) - start --- */
+
+/* careers "Open Positions": the job listing sits in a centred 1000px column, 40px/20px inside */
+main > .section.cards-job-container:has(.cards-job-listing) {
+  margin-bottom: 0;
+  padding: 40px var(--content-gutter);
+}
+
+main > .section.cards-job-container:has(.cards-job-listing) > div {
+  max-width: 1000px;
+  padding: 0 20px;
+}
+
+main > .section.cards-job-container:has(.cards-job-listing) .default-content-wrapper > h2 {
+  margin-bottom: 20px;
+  font-size: 32px;
+  line-height: 32px;
+  color: #2a2e43;
+}
+
+/* careers "Join Our Talent Network": heading, short copy and a mailto button */
+main > .section:has(> .default-content-wrapper:only-child a.button[href^="mailto:"]) h2 {
+  margin-bottom: 20px;
+}
+
+main > .section:has(> .default-content-wrapper:only-child a.button[href^="mailto:"]) p:not(.button-wrapper) {
+  margin-bottom: 20px;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--brand-grey-dark);
+}
+
+/* the source's page buttons are 14px with an 18px line at every width */
+main > .section:has(> .default-content-wrapper:only-child a.button[href^="mailto:"]) a.button:any-link,
+main > .section.cards-job-container .default-content-wrapper a.button:any-link {
+  font-size: 14px;
+  line-height: 18px;
+}
+
+/* careers teaser (about-us, contact-us): eyebrow, heading and copy above two job cards */
+main > .section.cards-job-container:not(:has(.cards-job-listing)) > .default-content-wrapper:first-child {
+  margin-bottom: 20px;
+}
+
+main > .section.cards-job-container .default-content-wrapper > p:has(+ h2) {
+  margin-bottom: 4px;
+  font-size: 12px;
+  line-height: 12px;
+  letter-spacing: 1px;
+}
+
+main > .section.cards-job-container:not(:has(.cards-job-listing)) .default-content-wrapper > h2 {
+  margin-bottom: 12px;
+}
+
+main > .section.cards-job-container:not(:has(.cards-job-listing)) .default-content-wrapper > p.button-wrapper {
+  margin-top: 20px;
+}
+
+/* about-us eyebrows (history, board): 12px on phones and tablets */
+main .section.tabs-history-container .default-content-wrapper > p:has(+ h2),
+main .section.cards-team-container .default-content-wrapper > p:has(+ h2) {
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 1px;
+}
+
+/* about-us history: the eyebrow sits on the heading, in translucent white */
+main .section.dark.tabs-history-container .default-content-wrapper > p:has(+ h2) {
+  margin-bottom: 0;
+  color: rgb(255 255 255 / 50%);
+}
+
+/* about-us values (light-grey split led by a heading): 12px under the heading on phones */
+main .section.light-grey.split:has(> .default-content-wrapper > h2:first-child) h2 {
+  margin-bottom: 12px;
+}
+
+@media (width >= 768px) {
+  main > .section.cards-job-container:has(.cards-job-listing) {
+    margin-bottom: 100px;
+  }
+
+  main > .section.cards-job-container:has(.cards-job-listing) .default-content-wrapper > h2 {
+    margin-bottom: 40px;
+  }
+
+  main > .section:has(> .default-content-wrapper:only-child a.button[href^="mailto:"]) {
+    margin-bottom: 100px;
+  }
+
+  main > .section:has(> .default-content-wrapper:only-child a.button[href^="mailto:"]) h2 {
+    line-height: 40px;
+  }
+
+  /* the source button is a fixed 222px with the label centred */
+  main > .section:has(> .default-content-wrapper:only-child a.button[href^="mailto:"]) a.button:any-link {
+    min-width: 222px;
+  }
+
+  main > .section:has(> .default-content-wrapper:only-child a.button[href^="mailto:"]) p:not(.button-wrapper) {
+    margin-bottom: 32px;
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  /* careers teaser: 722px intro, 40px above the cards; the section ends 40px above the promo */
+  main > .section.cards-job-container:not(:has(.cards-job-listing)) {
+    margin-bottom: 40px;
+    padding-top: 100px;
+  }
+
+  main > .section.cards-job-container:not(:has(.cards-job-listing)) > .default-content-wrapper:first-child {
+    margin-bottom: 40px;
+  }
+
+  main > .section.cards-job-container:not(:has(.cards-job-listing)) > .default-content-wrapper:first-child > * {
+    max-width: 722px;
+  }
+
+  main > .section.cards-job-container .default-content-wrapper > p:has(+ h2) {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 2px;
+  }
+
+  main > .section.cards-job-container:not(:has(.cards-job-listing)) .default-content-wrapper > h2 {
+    margin-bottom: 20px;
+    line-height: 40px;
+  }
+
+  main > .section.cards-job-container:not(:has(.cards-job-listing)) .default-content-wrapper > h2 + p {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  main .section.tabs-history-container .default-content-wrapper > p:has(+ h2),
+  main .section.cards-team-container .default-content-wrapper > p:has(+ h2) {
+    letter-spacing: 2px;
+  }
+
+  /* about-us history and team keep a 20px heading gap on tablets */
+  main .section.tabs-history-container .default-content-wrapper > h2,
+  main .section.cards-team-container .default-content-wrapper > h2 {
+    margin-bottom: 20px;
+  }
+
+  main .section.dark.tabs-history-container {
+    padding: 40px 0;
+  }
+
+  /* about-us celebrate / mission bands start 40px down on tablets */
+  main .section.light-grey-gradient:has(.columns-notched-titled, .columns-notched-has-stack) {
+    padding-top: 40px;
+  }
+
+  /* about-us values: near full-bleed grey panel, two equal columns, 40px heading */
+  main .section.light-grey.split:has(> .default-content-wrapper > h2:first-child) {
+    width: calc(100% - 8px);
+    padding: 60px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 40px;
+  }
+
+  main .section.light-grey.split:has(> .default-content-wrapper > h2:first-child) h2 {
+    font-size: 40px;
+  }
+
+  main .section.light-grey.split:has(> .default-content-wrapper > h2:first-child) h2 + p {
+    font-size: 18px;
+    line-height: 26px;
+  }
+}
+
+/* breakpoint-exception: the source switches these sections to their desktop layout at 1024px */
+@media (width >= 1024px) {
+  /* careers teaser: the "View Job Opportunities" button moves up beside the intro and the last
+     card keeps its 20px gap */
+  main > .section.cards-job-container:not(:has(.cards-job-listing)) {
+    position: relative;
+    padding-top: var(--section-spacing);
+    padding-bottom: 20px;
+  }
+
+  /* on about-us (after the team) the promo follows 100px below, on contact-us 40px */
+  main > .section.cards-team-container ~ .section.cards-job-container:not(:has(.cards-job-listing)) {
+    margin-bottom: var(--section-spacing);
+  }
+
+  main > .section.cards-job-container:not(:has(.cards-job-listing)) > .default-content-wrapper:last-child > p.button-wrapper:only-child {
+    position: absolute;
+    top: calc(var(--section-spacing) + 10px);
+    right: max(var(--content-gutter), calc((100% - var(--content-max-width)) / 2));
+    margin: 0;
+  }
+
+  /* the source button is a fixed 270px with the label centred */
+  main > .section.cards-job-container:not(:has(.cards-job-listing)) .default-content-wrapper a.button:any-link {
+    min-width: 270px;
+    padding-inline: 20px;
+  }
+
+  main .section.tabs-history-container .default-content-wrapper > p:has(+ h2),
+  main .section.cards-team-container .default-content-wrapper > p:has(+ h2) {
+    font-size: 14px;
+  }
+
+  main .section.tabs-history-container .default-content-wrapper > h2,
+  main .section.cards-team-container .default-content-wrapper > h2 {
+    margin-bottom: 40px;
+  }
+
+  main .section.dark.tabs-history-container {
+    padding: 100px 0 65px;
+  }
+
+  main .section.light-grey-gradient:has(.columns-notched-titled, .columns-notched-has-stack) {
+    padding-top: var(--section-spacing);
+  }
+
+  /* about-us values: equal columns, the accordion capped at 500px */
+  main .section.light-grey.split:has(> .default-content-wrapper > h2:first-child) {
+    width: calc(100% - (2 * var(--content-gutter)));
+    padding: 72px 60px;
+    grid-template-columns: minmax(0, 1fr) min(500px, calc((100% - 76px) / 2));
+    column-gap: 76px;
+  }
+
+  main .section.light-grey.split:has(> .default-content-wrapper > h2:first-child) h2 {
+    margin-bottom: 20px;
+  }
+}
+
+/* --- careers / about-us sections - end --- */

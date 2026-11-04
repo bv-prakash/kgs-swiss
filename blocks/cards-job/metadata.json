@@ -1,0 +1,48 @@
+{
+  "variantName": "cards-job",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Open job positions as full-width cards",
+    "description": "One full-width light-grey card per job with a cut-off top-right corner on mobile. Title at the top (VIEW DETAILS link with north-east arrow at the top right from 768px), a divider, then location (pin icon added by the block), employment type and experience in a row (stacked with dividers on mobile). From 768px a hovered or focused card turns navy, gets a 40px cut corner and white text. More than 4 jobs are paginated client-side, 4 per page, with numbered page buttons and Previous/Next.",
+    "source": "Careers page #job-listing (.job-listings .job-card) and the About us / Contact us recent-jobs widget (.recent-jobs-widget)."
+  },
+  "contentPattern": {
+    "structure": "One row per job, one cell: H3 job title, location paragraph, employment type paragraph, experience paragraph, View details link",
+    "rows": [
+      [
+        "<h3>Accountmanager</h3><p>Elburg, Nederland</p><p>Full Time</p><p>Experience : 3 years</p><p><a href=\"/careers/index/detail/id/32\">View details</a></p>"
+      ],
+      [
+        "one row per job"
+      ]
+    ],
+    "sourceSelectors": [
+      "#job-listing",
+      "#maincontent .about-career .recent-jobs-widget"
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": [
+    {
+      "url": "https://www.kgs.swiss/careers/",
+      "pagePath": "/careers/index",
+      "sections": ["s4 (Open Positions)"],
+      "lastUsed": "2026-11-04"
+    },
+    {
+      "url": "https://www.kgs.swiss/about-us",
+      "pagePath": "/about-us",
+      "sections": ["s11 (Careers at KGS DIAMOND)"],
+      "lastUsed": "2026-11-04"
+    },
+    {
+      "url": "https://www.kgs.swiss/contact-us/",
+      "pagePath": "/contact-us/index",
+      "sections": ["s4 (Careers at KGS DIAMOND)"],
+      "lastUsed": "2026-11-04"
+    }
+  ],
+  "reuseGuidance": "Use for lists of job openings (or similar text-only listings) where each item links to its own detail page. The first paragraph after the title gets the location pin; the last link-only paragraph is the card link. Author every job in one table: the block shows 4 per page and adds the pager itself."
+}
