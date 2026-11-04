@@ -83,9 +83,12 @@ main .cards-promo .cards-promo-cta a::after {
     gap: 0 26px;
   }
 
-  /* source pins the CTA with space-between on two wrappers; here the CTA's auto top margin does it */
+  /* source pins the CTA with space-between on two wrappers; here the CTA's auto top margin does it.
+     The source panels are a fixed 300px tall; long copy at tablet widths runs past the edge. */
   .cards-promo .cards-promo-body {
+    box-sizing: border-box;
     overflow: visible;
+    height: 300px;
     min-height: 300px;
     padding: 40px 47px 43px 40px;
     background-size: cover;

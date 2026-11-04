@@ -4,6 +4,43 @@ function isImageOnly(cell) {
   return cell.querySelector('picture') && cell.textContent.trim() === '';
 }
 
+/**
+ * Breadcrumb derived from the page path: Home > parent folders > page heading.
+ * A leading /content folder (local preview) is kept in links but not shown.
+ */
+function buildBreadcrumb(title) {
+  const parts = window.location.pathname.replace(/\.html$/, '').split('/').filter(Boolean);
+  const offset = parts[0] === 'content' ? 1 : 0;
+  const crumbs = [{ label: 'Home', href: '/' }];
+  parts.slice(offset, -1).forEach((part, i) => {
+    crumbs.push({
+      label: part.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+      href: `/${parts.slice(0, offset + i + 1).join('/')}`,
+    });
+  });
+  crumbs.push({ label: title });
+
+  const nav = document.createElement('nav');
+  nav.className = 'hero-banner-breadcrumb';
+  nav.setAttribute('aria-label', 'Breadcrumb');
+  const list = document.createElement('ol');
+  crumbs.forEach(({ label, href }) => {
+    const li = document.createElement('li');
+    if (href) {
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = label;
+      li.append(a);
+    } else {
+      li.textContent = label;
+      li.setAttribute('aria-current', 'page');
+    }
+    list.append(li);
+  });
+  nav.append(list);
+  return nav;
+}
+
 export default function decorate(block) {
   const media = document.createElement('div');
   media.className = 'hero-banner-media';
@@ -54,6 +91,12 @@ export default function decorate(block) {
       { width: '900' },
     ]));
   });
+
+  // compact page banners lead with a breadcrumb back to their parent pages
+  const heading = content.querySelector('h1');
+  if (block.classList.contains('compact') && heading) {
+    content.prepend(buildBreadcrumb(heading.textContent.trim()));
+  }
 
   const children = [];
   if (media.children.length) children.push(media);

@@ -1,0 +1,40 @@
+{
+  "variantName": "form",
+  "baseBlock": "form",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Contact form authored as a table of field definitions",
+    "description": "Underlined fields (40px, 60px from 768px) with grey labels that float above the field on focus or input, red asterisk on required fields; selects always show their label above. Half-width pairs from 768px (26px gutter). Checkbox group with navy square boxes in two columns from 768px, consent checkbox with an inline link, red SEND and outlined CLEAR buttons (site button styles). Client-side validation with red messages under each field (\"This is a required field.\"). Submits multipart FormData with the authored field names to the configured Submit URL; without one it validates and shows a clear 'not connected' notice instead of posting. No reCAPTCHA.",
+    "source": "Contact us: Magento Hexaform form (form_id 32, POST /hexaform/index/post/)."
+  },
+  "contentPattern": {
+    "structure": "Optional header row, then one row per field: Type | Name | Label | Required | Options | Placeholder | Layout; optional trailing settings rows: Submit URL | url, Success message | text, Error message | text",
+    "rows": [
+      ["Type", "Name", "Label", "Required", "Options", "Placeholder", "Layout"],
+      ["text", "field[197]", "First Name", "yes", "", "", "half"],
+      ["email", "field[203]", "Email", "yes", "", "", "full"],
+      ["select", "option[221]", "Select your country", "yes", "AF | Afghanistan (one per line)", "--Please Select--", "full"],
+      ["checkbox-group", "option[209][]", "Area of interest", "yes", "Stone & Construction (one per line)", "", "full"],
+      ["checkbox", "field[218][]", "I agree ... <a>Privacy Policy</a>.", "yes", "yes", "", "full"],
+      ["submit", "send", "send", "", "", "", ""],
+      ["reset", "clear", "Clear", "", "", "", ""],
+      ["Submit URL", "https://... (optional)"],
+      ["Success message", "text (optional)"]
+    ],
+    "fieldTypes": ["text", "email", "tel", "url", "number", "date", "textarea", "select", "checkbox-group", "radio-group", "checkbox", "hidden", "submit", "reset"],
+    "sourceSelectors": [
+      "#maincontent .column.main > div:nth-of-type(2) form[action*=\"hexaform\"]"
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": [
+    {
+      "url": "https://www.kgs.swiss/contact-us/",
+      "pagePath": "/contact-us/index",
+      "sections": ["s2 (Get in touch, split section: form left, photo right)"],
+      "lastUsed": "2026-11-04"
+    }
+  ],
+  "reuseGuidance": "Use for simple contact or enquiry forms whose fields authors maintain in the document. Keep the Name column stable: it is the key the submit target receives (the KGS names field[197] etc. let a relay map back to Hexaform). Add a Submit URL row once a submission service (AEM Forms submission, serverless relay or CRM endpoint) exists, and add spam protection there; the block has no reCAPTCHA."
+}

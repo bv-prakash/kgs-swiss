@@ -1,0 +1,37 @@
+{
+  "variantName": "tabs-history",
+  "baseBlock": "tabs",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Company history timeline as period tabs",
+    "description": "White-on-navy tab bar of period labels (underlined active tab, sideways scrolling when they do not fit) above the active period's panel: optional period title, then subtitle and text beside a 353px image (stacked on phones, halves from 768px, a 1024px centred panel from 1024px). ARIA tablist with arrow-key, Home and End navigation. Meant for a dark section.",
+    "source": "About us: .kgs-history .kgs-history-tabs (jQuery UI tabs)."
+  },
+  "contentPattern": {
+    "structure": "One row per period: tab label | text (optional title heading, subtitle heading, paragraphs or list) | image (optional second image = mobile crop)",
+    "rows": [
+      [
+        "1906 - 1950",
+        "<h3>Origin of KGS Group SA</h3><h4>Manufacturing building materials</h4><p>Family roots in Swiss craftsmanship ...</p>",
+        "Desktop image, optional mobile image"
+      ],
+      [
+        "one row per period (5)"
+      ]
+    ],
+    "sourceSelectors": [
+      "#maincontent .column.main > div.kgs-history .kgs-history-tabs"
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": [
+    {
+      "url": "https://www.kgs.swiss/about-us",
+      "pagePath": "/about-us",
+      "sections": ["s8 (Our History, dark section)"],
+      "lastUsed": "2026-11-04"
+    }
+  ],
+  "reuseGuidance": "Use for a few labelled periods or topics that each show text beside one image. Two headings at the top of the text cell: the first becomes the full-width panel title. Place the block in a dark section; its colours assume a navy background."
+}

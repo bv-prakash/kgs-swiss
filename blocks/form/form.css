@@ -1,0 +1,401 @@
+/* form: underlined fields with floating labels, a two-column checkbox group, consent and
+   SEND / CLEAR buttons (source: Hexaform contact form on /contact-us) */
+
+.form {
+  --form-rule: rgb(105 116 124 / 50%);
+  --form-label: var(--brand-grey);
+  --form-error: #e02b27;
+}
+
+.form .form-form {
+  margin: 0;
+}
+
+/* the source opens the field list with a 30 / 40px gap (room for the floated labels) */
+.form .form-fields {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 26px;
+  margin: 0 0 20px;
+  padding: 30px 0 0;
+}
+
+.form .form-field {
+  position: relative;
+  flex: 1 1 100%;
+  min-width: 0;
+  margin: 0 0 30px;
+}
+
+.form .form-fields > .form-field:last-child {
+  margin-bottom: 0;
+}
+
+/* phones stack the half-width pair, each 20px short of the full width */
+.form .form-field-half {
+  flex: 0 1 calc(100% - 20px);
+}
+
+.form fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+/* text-like fields: underline only, the label sits inside until the field is used */
+.form .form-control {
+  position: relative;
+}
+
+.form .form-control input,
+.form .form-control select,
+.form .form-control textarea {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  height: 40px;
+  margin: 0;
+  padding: 0 4px;
+  border: none;
+  border-bottom: 1px solid var(--form-rule);
+  border-radius: 1px;
+  background: #fff;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #000;
+  appearance: none;
+}
+
+.form .form-control textarea {
+  height: auto;
+  min-height: 40px;
+  padding-top: 10px;
+  resize: none;
+}
+
+.form .form-control select {
+  padding-right: 28px;
+  font-weight: 400;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%232b374b' stroke-width='1.6'%3E%3Cpath d='m3 6 5 5 5-5'/%3E%3C/svg%3E") right 4px center / 16px 16px no-repeat;
+  cursor: pointer;
+}
+
+.form .form-control input::placeholder,
+.form .form-control textarea::placeholder {
+  color: rgb(194 194 194);
+}
+
+.form .form-control input:focus,
+.form .form-control select:focus,
+.form .form-control textarea:focus {
+  outline: none;
+  border-bottom-color: var(--brand-navy);
+  box-shadow: 0 1px 0 var(--brand-navy);
+}
+
+.form .form-control .form-label {
+  position: absolute;
+  top: 8px;
+  left: 4px;
+  max-width: calc(100% - 8px);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  text-transform: capitalize;
+  color: var(--form-label);
+  pointer-events: none;
+  transition: top 0.2s, font-size 0.2s, line-height 0.2s;
+}
+
+.form .form-control .form-label a {
+  pointer-events: auto;
+}
+
+/* label floats above the field once it is focused, filled, or has a placeholder (selects) */
+.form .form-field.has-floated-label .form-label,
+.form .form-control input:focus + .form-label,
+.form .form-control textarea:focus + .form-label,
+.form .form-control input:not(:placeholder-shown) + .form-label,
+.form .form-control textarea:not(:placeholder-shown) + .form-label {
+  top: -12px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+/* required marker: the source's 5.5px margin plus the space after the label text */
+.form .form-field.is-required .form-label::after {
+  content: "*";
+  margin-left: 9.5px;
+  font-size: 14px;
+  color: var(--form-error);
+}
+
+/* checkbox group and consent */
+/* phones: the group label sits in one 22.86px line right above the options */
+.form .form-field-checkbox-group legend,
+.form .form-field-radio-group legend {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22.86px;
+  color: var(--brand-navy);
+}
+
+.form .form-options {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form .form-option {
+  display: flex;
+  align-items: flex-start;
+}
+
+.form .form-option input {
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  width: 18px;
+  height: 18px;
+  margin: 0 10px 0 0;
+  border: 1px solid var(--brand-navy);
+  border-radius: 0;
+  background: #fff;
+  appearance: none;
+  cursor: pointer;
+}
+
+.form .form-option input[type="radio"] {
+  border-radius: 50%;
+}
+
+.form .form-option input:checked {
+  background: var(--brand-navy) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2'%3E%3Cpath d='m3.5 8.5 3 3 6-7'/%3E%3C/svg%3E") center / 80% no-repeat;
+}
+
+.form .form-option input:focus-visible {
+  outline: 2px solid var(--brand-navy);
+  outline-offset: 2px;
+}
+
+.form .form-option label {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--brand-navy);
+  cursor: pointer;
+}
+
+/* each option row is one 16px body line (22.86px) tall, whatever the label size,
+   with the box centred on the first line */
+.form .form-options .form-option label {
+  line-height: 22.86px;
+}
+
+.form .form-options .form-option input {
+  margin-top: 2.4px;
+}
+
+.form .form-field-checkbox .form-option label {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.form .form-option label a:any-link {
+  font-weight: inherit;
+  color: inherit;
+}
+
+.form .form-field-checkbox.is-required .form-label::after {
+  content: none;
+}
+
+/* validation */
+.form .form-error {
+  margin: 7px 0 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--form-error);
+}
+
+.form .form-error[hidden] {
+  display: none;
+}
+
+.form .form-field.is-invalid .form-control input,
+.form .form-field.is-invalid .form-control select,
+.form .form-field.is-invalid .form-control textarea {
+  border-bottom-color: var(--form-error);
+}
+
+.form .form-field.is-invalid .form-option input {
+  border-color: var(--form-error);
+}
+
+/* buttons: site primary (SEND, red) and secondary (CLEAR, outline) at the source's fixed widths */
+.form .form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin: 20px 0 0;
+}
+
+.form .form-actions .button {
+  min-width: 82px;
+  min-height: 40px;
+}
+
+.form .form-actions .button[type="reset"] {
+  min-width: 89px;
+}
+
+.form .form-actions .button[disabled] {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.form .form-status {
+  margin: 20px 0 0;
+  padding: 16px;
+  border-left: 3px solid var(--brand-navy);
+  background: var(--brand-grey-light);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--brand-navy);
+}
+
+.form .form-status:focus {
+  outline: none;
+}
+
+.form .form-status-success {
+  border-left-color: #1f8a3b;
+}
+
+.form .form-status-error {
+  border-left-color: var(--form-error);
+}
+
+/* breakpoint-exception: the source switches to the large field sizes and half-width pairs at 768px */
+@media (width >= 768px) {
+  .form .form-fields {
+    margin-bottom: 40px;
+    padding-top: 40px;
+  }
+
+  .form .form-field {
+    margin-bottom: 40px;
+  }
+
+  .form .form-fields > .form-field:last-child {
+    margin-bottom: 0;
+  }
+
+  .form .form-field-half {
+    flex-basis: calc(50% - 13px);
+  }
+
+  .form .form-control input,
+  .form .form-control select,
+  .form .form-control textarea {
+    height: 60px;
+    font-size: 18px;
+    line-height: 25.7px;
+  }
+
+  .form .form-control textarea {
+    height: auto;
+    min-height: 60px;
+    padding-top: 16px;
+  }
+
+  .form .form-control .form-label {
+    font-size: 18px;
+    line-height: 18px;
+  }
+
+  .form .form-field.is-required .form-label::after {
+    margin-left: 10.5px;
+  }
+
+  .form .form-field.has-floated-label .form-label,
+  .form .form-control input:focus + .form-label,
+  .form .form-control textarea:focus + .form-label,
+  .form .form-control input:not(:placeholder-shown) + .form-label,
+  .form .form-control textarea:not(:placeholder-shown) + .form-label {
+    top: -10px;
+    font-size: 14px;
+    line-height: 14px;
+  }
+
+  .form .form-field-checkbox-group legend,
+  .form .form-field-radio-group legend {
+    margin-bottom: 20px;
+    font-size: 18px;
+    line-height: 18px;
+  }
+
+  .form .form-field-checkbox-group .form-options,
+  .form .form-field-radio-group .form-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 0;
+  }
+
+  .form .form-option input {
+    width: 22px;
+    height: 22px;
+  }
+
+  .form .form-option label {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .form .form-options .form-option input {
+    margin-top: 0.4px;
+  }
+
+  .form .form-field-checkbox .form-option label {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  /* the source's inline button bar leaves a 7px line gap under the buttons */
+  .form .form-actions {
+    gap: 30px;
+    margin: 40px 0 7px;
+  }
+
+  .form .form-actions .button {
+    min-width: 136px;
+    min-height: 48px;
+  }
+
+  .form .form-actions .button[type="reset"] {
+    min-width: 144px;
+  }
+
+  /* the north-east arrow slides in beside the label on hover */
+  .form .form-actions .button::after {
+    content: "";
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
+    margin-left: -15px;
+    background-color: currentcolor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='2.4'%3E%3Cpath d='M3 13 13 3M5 3h8v8'/%3E%3C/svg%3E") center / contain no-repeat;
+    opacity: 0;
+    transition: margin var(--button-transition), opacity var(--button-transition);
+  }
+
+  .form .form-actions .button:hover::after,
+  .form .form-actions .button:focus-visible::after {
+    margin-left: 0;
+    opacity: 1;
+  }
+}

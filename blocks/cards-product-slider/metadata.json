@@ -1,0 +1,38 @@
+{
+  "variantName": "cards-product-slider",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Product range teasers in a horizontal slider",
+    "description": "Product cards (square image, bold uppercase name, description). 4 visible from 768px with square Previous/Next buttons; 2.5 visible on mobile with swipe scrolling and dash dots. Controls hide when every card fits.",
+    "source": "Industry pages: .industries-product-slider (slick, 4 slides, 2.5 below 768px with dots)."
+  },
+  "contentPattern": {
+    "structure": "One row per product: image | bold name paragraph + description",
+    "rows": [
+      [
+        "Image",
+        "<p><strong>SAW BLADES</strong></p><p>description</p>"
+      ],
+      [
+        "one row per product (4-5 rows)"
+      ]
+    ],
+    "sourceSelectors": [
+      "#maincontent .industries-view > .content > div:nth-of-type(4) .industries-product-list"
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": [
+    {
+      "url": "https://www.kgs.swiss/industries/stone-construction",
+      "pagePath": "/industries/stone-construction",
+      "sections": [
+        "s5 (Products)"
+      ],
+      "lastUsed": "2026-11-04"
+    }
+  ],
+  "reuseGuidance": "Use for any number of look-alike product cards that should scroll horizontally. For a static grid use cards-industry or cards-news."
+}

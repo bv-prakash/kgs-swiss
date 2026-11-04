@@ -54,7 +54,22 @@
   color: var(--brand-grey-dark);
 }
 
+/* careers "Why Work With Us" (heading without an eyebrow): 60px icons with the source's 7px
+   inline-image descender below them, and 20px titles on a 20px line from tablet up */
+main .section:has(> .default-content-wrapper:first-child > h2:only-child) .cards-icon .cards-icon-icon {
+  padding-bottom: 7px;
+}
+
+main .section:has(> .default-content-wrapper:first-child > h2:only-child) .cards-icon .cards-icon-icon img {
+  width: 60px;
+  height: 60px;
+}
+
 @media (width >= 768px) {
+  main .section:has(> .default-content-wrapper:first-child > h2:only-child) .cards-icon .cards-icon-title {
+    line-height: 20px;
+  }
+
   .cards-icon > ul {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 26px;

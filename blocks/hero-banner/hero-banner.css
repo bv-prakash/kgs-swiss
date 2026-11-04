@@ -149,10 +149,87 @@ main .hero-banner a.hero-banner-cta-secondary::after {
   display: none;
 }
 
+/* compact: inner-page banner (kgs.swiss .cms-banner-wrapper), 250px / 302px tall */
+.hero-banner.compact {
+  min-height: 250px;
+}
+
+.hero-banner.compact .hero-banner-content {
+  padding: 20px var(--content-gutter);
+}
+
+.hero-banner.compact .hero-banner-content > * {
+  max-width: none;
+}
+
+.hero-banner.compact h1 {
+  font-size: 26px;
+  line-height: 26px;
+  text-transform: none;
+}
+
+.hero-banner.compact .hero-banner-content > p {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+/* the source shows the breadcrumb from 768px */
+.hero-banner .hero-banner-breadcrumb {
+  display: none;
+}
+
+.hero-banner .hero-banner-breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  color: rgb(255 255 255 / 80%);
+}
+
+.hero-banner .hero-banner-breadcrumb li:not(:last-child)::after {
+  content: "›";
+  margin-left: 6px;
+}
+
+main .hero-banner .hero-banner-breadcrumb a:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+main .hero-banner .hero-banner-breadcrumb a:hover,
+main .hero-banner .hero-banner-breadcrumb a:focus-visible {
+  color: #fff;
+  text-decoration: underline;
+}
+
 @media (width >= 768px) {
   .hero-banner {
     align-items: center;
     min-height: 601px;
+  }
+
+  .hero-banner.compact {
+    align-items: flex-start;
+    min-height: 250px;
+  }
+
+  .hero-banner.compact .hero-banner-content {
+    padding: 20px var(--content-gutter);
+  }
+
+  .hero-banner.compact h1 {
+    font-size: 44px;
+    line-height: 44px;
+  }
+
+  .hero-banner .hero-banner-breadcrumb {
+    display: block;
+    margin-bottom: 20px;
   }
 
   .hero-banner .hero-banner-media img {
@@ -212,5 +289,21 @@ main .hero-banner a.hero-banner-cta-secondary::after {
     width: 16px;
     margin-left: 8px;
     opacity: 1;
+  }
+}
+
+/* breakpoint-exception: the source compact banner gains desktop spacing at 1024px */
+@media (width >= 1024px) {
+  .hero-banner.compact {
+    min-height: 302px;
+  }
+
+  .hero-banner.compact .hero-banner-content {
+    padding-top: 40px;
+    padding-bottom: 38px;
+  }
+
+  .hero-banner .hero-banner-breadcrumb {
+    margin-bottom: 40px;
   }
 }

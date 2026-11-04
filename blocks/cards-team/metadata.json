@@ -1,0 +1,37 @@
+{
+  "variantName": "cards-team",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "People grid with portrait, role and name",
+    "description": "Square portraits with an uppercase grey role line and a bold navy name below. 2 per row on phones (19px gutter, 20px between rows), 4 per row from 768px; every group of four people starts 80px below the previous one. Gutter 26px, 20px under the photo and 16px role text from 1024px.",
+    "source": "About us: .about-team (Board of Directors, Group Management)."
+  },
+  "contentPattern": {
+    "structure": "One row per person: portrait image | role paragraph + bold name paragraph",
+    "rows": [
+      [
+        "Portrait image",
+        "<p>Chairman of the board</p><p><strong>Sandro Ferronato</strong></p>"
+      ],
+      [
+        "one row per person"
+      ]
+    ],
+    "sourceSelectors": [
+      "#maincontent .column.main > div:nth-of-type(9) .about-team",
+      "#maincontent .column.main > div:nth-of-type(10) .about-team"
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": [
+    {
+      "url": "https://www.kgs.swiss/about-us",
+      "pagePath": "/about-us",
+      "sections": ["s9 (Board of Directors)", "s10 (Group Management)"],
+      "lastUsed": "2026-11-04"
+    }
+  ],
+  "reuseGuidance": "Use for team or board listings (portrait, role, name). The bold-only paragraph (or a heading) is the name; other text is the role. One portrait per person; a second image in the cell is ignored."
+}

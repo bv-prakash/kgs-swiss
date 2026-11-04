@@ -1,0 +1,288 @@
+/* cards-job: full-width grey job cards (title, VIEW DETAILS link, location/type/experience row);
+   from 768px the card turns navy with a cut corner on hover (source: .job-listings / .recent-jobs-widget) */
+
+.cards-job {
+  --cards-job-rule: rgb(211 212 213);
+  --cards-job-text: var(--brand-grey-dark);
+}
+
+.cards-job .cards-job-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-job .cards-job-card {
+  position: relative;
+  margin: 0 0 20px;
+  padding: 20px 16px;
+  background: rgb(105 116 124 / 10%);
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+  overflow: hidden;
+}
+
+.cards-job .cards-job-card[hidden] {
+  display: none;
+}
+
+.cards-job .cards-job-card:last-child {
+  margin-bottom: 0;
+}
+
+.cards-job .cards-job-header {
+  padding: 0 0 12px;
+  border-bottom: 1px solid var(--cards-job-rule);
+}
+
+.cards-job .cards-job-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  color: var(--cards-job-text);
+}
+
+/* location on its own ruled line, then type and experience at either end */
+.cards-job .cards-job-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--cards-job-rule);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--cards-job-text);
+}
+
+.cards-job .cards-job-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 12px 0;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.cards-job .cards-job-location {
+  width: 100%;
+  border-bottom: 1px solid var(--cards-job-rule);
+}
+
+/* map pin before the location (source: kgs-icon glyph, 24px + 8px margin) */
+.cards-job .cards-job-location::before {
+  content: "";
+  flex: 0 0 24px;
+  width: 24px;
+  height: 25px;
+  margin-right: 8px;
+  background-color: currentcolor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6'%3E%3Cpath d='M12 21s-6.5-6.1-6.5-11a6.5 6.5 0 0 1 13 0c0 4.9-6.5 11-6.5 11Z'/%3E%3Ccircle cx='12' cy='10' r='2.4'/%3E%3C/svg%3E") center / 24px 24px no-repeat;
+}
+
+/* the source link sits in a 23px line box, 3px down; flex keeps that independent of the
+   rendering mode */
+.cards-job .cards-job-link {
+  display: flex;
+  align-items: center;
+  min-height: 23px;
+  margin: 12px 0 0;
+  font-size: 16px;
+  line-height: 1.4286;
+}
+
+/* full listing (careers): 10px under the title rule, 30px between the info rows */
+.cards-job.cards-job-listing .cards-job-header {
+  margin-bottom: 10px;
+}
+
+.cards-job.cards-job-listing .cards-job-info {
+  row-gap: 30px;
+}
+
+main .cards-job .cards-job-link a:any-link {
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: var(--brand-red);
+}
+
+/* north-east arrow after the label */
+main .cards-job .cards-job-link a::after {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  vertical-align: top;
+  background-color: currentcolor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 13 13 3.5M4.5 3H13v8.5' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E") center / 1em 1em no-repeat;
+}
+
+/* client-side pages (more than 4 jobs) */
+.cards-job .cards-job-pager ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 16px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-job .cards-job-pager button {
+  box-sizing: border-box;
+  min-width: 50px;
+  height: 50px;
+  margin: 0;
+  padding: 0 16px;
+  border: 1px solid rgb(105 116 124 / 20%);
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  color: var(--brand-navy);
+  cursor: pointer;
+}
+
+.cards-job .cards-job-pager button[aria-current="page"] {
+  color: #333;
+  cursor: default;
+}
+
+.cards-job .cards-job-pager .cards-job-step {
+  padding: 0 20px;
+  border-color: var(--brand-navy);
+  background: var(--brand-navy);
+  color: #fff;
+}
+
+.cards-job .cards-job-pager button:not([aria-current]):hover,
+.cards-job .cards-job-pager button:focus-visible {
+  border-color: var(--brand-red);
+  background: var(--brand-red);
+  color: #fff;
+}
+
+/* breakpoint-exception: the source turns the cards into a single row with a hover state at 768px */
+@media (width >= 768px) {
+  .cards-job .cards-job-card {
+    padding: 40px;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 100% 100%, 0 100%);
+    transition: clip-path 0.6s ease-in-out, background 0.6s ease-in-out;
+  }
+
+  .cards-job .cards-job-header {
+    padding-bottom: 20px;
+  }
+
+  /* room for the VIEW DETAILS link at the top right */
+  .cards-job .cards-job-card:has(.cards-job-link) .cards-job-header {
+    padding-right: 170px;
+  }
+
+  .cards-job .cards-job-title {
+    font-size: 24px;
+    line-height: 1;
+    color: var(--brand-navy);
+  }
+
+  .cards-job .cards-job-info {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin: 8px 0 0;
+    border: none;
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  /* teaser (not the full listing): the middle fact is centred in its column, the last one
+     right-aligned */
+  .cards-job:not(.cards-job-listing) .cards-job-meta:nth-child(2):not(:last-child) {
+    justify-content: center;
+  }
+
+  .cards-job:not(.cards-job-listing) .cards-job-meta:last-child:not(:first-child) {
+    justify-content: flex-end;
+  }
+
+  /* the teaser pin sits 8px from its text (the listing leaves 16px) */
+  .cards-job:not(.cards-job-listing) .cards-job-location::before {
+    margin-right: 0;
+  }
+
+  .cards-job .cards-job-meta {
+    padding: 0;
+  }
+
+  .cards-job .cards-job-location {
+    width: auto;
+    border: none;
+  }
+
+  .cards-job .cards-job-link {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    margin: 0;
+  }
+
+  /* on hover the label makes room for the arrow (source widens the link from 121 to 146px) */
+  main .cards-job .cards-job-link a:any-link {
+    font-size: 16px;
+    line-height: 1;
+    transition: color 0.6s ease-in-out, padding 0.4s;
+  }
+
+  /* the arrow fades in on hover */
+  main .cards-job .cards-job-link a::after {
+    position: absolute;
+    top: 0;
+    right: 8px;
+    margin: 0;
+    opacity: 0;
+    transition: 0.4s;
+  }
+
+  .cards-job .cards-job-card:hover,
+  .cards-job .cards-job-card:focus-within {
+    background: var(--brand-navy);
+    clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%);
+  }
+
+  .cards-job .cards-job-card:hover .cards-job-header,
+  .cards-job .cards-job-card:focus-within .cards-job-header {
+    border-color: rgb(255 255 255 / 20%);
+  }
+
+  .cards-job .cards-job-card:hover .cards-job-title,
+  .cards-job .cards-job-card:focus-within .cards-job-title,
+  .cards-job .cards-job-card:hover .cards-job-info,
+  .cards-job .cards-job-card:focus-within .cards-job-info,
+  main .cards-job .cards-job-card:hover .cards-job-link a:any-link,
+  main .cards-job .cards-job-card:focus-within .cards-job-link a:any-link {
+    color: #fff;
+  }
+
+  main .cards-job .cards-job-card:hover .cards-job-link a:any-link,
+  main .cards-job .cards-job-card:focus-within .cards-job-link a:any-link {
+    padding-right: 25px;
+  }
+
+  main .cards-job .cards-job-card:hover .cards-job-link a::after,
+  main .cards-job .cards-job-card:focus-within .cards-job-link a::after {
+    right: 0;
+    opacity: 1;
+  }
+
+  .cards-job .cards-job-pager ul {
+    margin-top: 40px;
+  }
+}
